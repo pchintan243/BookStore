@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom'
 const Services = () => {
     const navigate = useNavigate();
     const changePage = () => {
+        alert("Navigate to Home Page")
         navigate("/")
     }
     return (

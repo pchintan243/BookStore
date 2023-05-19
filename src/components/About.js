@@ -1,4 +1,5 @@
 import React from 'react'
+import Button from '@mui/material/Button';
 
 const About = () => {
     return (
@@ -7,6 +8,7 @@ const About = () => {
                 <p className='fw-bolder h1'>
                     You are in About Page
                 </p>
+                <Button variant="contained">Click Me!!</Button>
             </div>
         </>
     )

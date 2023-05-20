@@ -5,15 +5,19 @@ const Contact = () => {
   return (
     <>
       <div className="login-box">
-        <h2>Login</h2>
+        <h2>Contact Us</h2>
         <form>
           <div className="user-box">
-            <input type="text" name="" required="" />
-            <label>Username</label>
+            <input type="text" name="" required />
+            <label>Name</label>
           </div>
           <div className="user-box">
-            <input type="password" name="" required />
-            <label>Password</label>
+            <input type="text" name="" required />
+            <label>Email</label>
+          </div>
+          <div className="user-box">
+            <input type="text" name="" required />
+            <label>Contact Number</label>
           </div>
           <button>Submit</button>
         </form>

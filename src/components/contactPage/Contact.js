@@ -12,7 +12,7 @@ const Contact = () => {
             <label>Username</label>
           </div>
           <div className="user-box">
-            <input type="password" name="" required="" />
+            <input type="password" name="" required />
             <label>Password</label>
           </div>
           <button>Submit</button>

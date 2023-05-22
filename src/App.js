@@ -1,7 +1,7 @@
 import React from 'react'
 import './App.css';
 import Contact from './components/contactPage/Contact';
-import Navbar from './components/Navbar';
+import Navbar from './components/navbar/Navbar';
 import Home from './components/Home';
 import About from './components/About';
 import Services from './components/Services';

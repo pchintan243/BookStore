@@ -9,9 +9,9 @@ const Navbar = () => {
 
   return (
     <>
-      <nav class="header">
-        <h1 class="logo">BookStore</h1>
-        <ul class="main-nav">
+      <nav className="header">
+        <h1 className="logo">BookStore</h1>
+        <ul className="main-nav">
           <li><Link to="/">Home</Link></li>
           <li><Link to="/about">About</Link></li>
           <li><Link to="/contact">Contact</Link></li>

@@ -17,7 +17,7 @@ const Navbar = () => {
           <li><Link to="/contact">Contact</Link></li>
           <li><Link to="/services">Services</Link></li>
         </ul>
-        <Avatar sx={{ bgcolor: "blue" }}>CP</Avatar>
+        <Avatar sx={{ bgcolor: "blue", cursor: "pointer" }}>CP</Avatar>
       </nav>
     </>
   )

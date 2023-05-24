@@ -1,14 +1,14 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import "./navbar.css"
 import {
-  Link
+  Link, useNavigate
 } from 'react-router-dom'
 import { Avatar } from '@mui/material'
 import { Popover } from '@mui/material';
 import LogoutIcon from '@mui/icons-material/Logout';
 
 const Navbar = () => {
-
+  const Navigate = useNavigate();
   const [open, setOpen] = useState(false)
   const [anchorEl, setAnchorEl] = useState(null);
 
@@ -23,12 +23,9 @@ const Navbar = () => {
     setOpen(false);
   };
 
-  useEffect(() => {
-    // console.log("The new value of Name : ", name);
-    // return () => {
-    //   console.log("The old value of Name : ", name);
-    // };
-  }, []);
+  const onHomePage = () => {
+    Navigate("/")
+  }
 
   return (
     <>
@@ -66,7 +63,7 @@ const Navbar = () => {
             <h6 style={{
               fontWeight: 'bolder'
             }}>Chintan Patel</h6>
-            <LogoutIcon style={{ cursor: "pointer" }} />
+            <LogoutIcon style={{ cursor: "pointer" }} onClick={onHomePage} />
           </div>
         </Popover>
       </nav>

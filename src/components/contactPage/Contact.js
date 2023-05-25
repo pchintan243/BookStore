@@ -4,6 +4,8 @@ import { Button, TextField } from '@mui/material';
 import { Formik } from 'formik';
 import * as Yup from "yup";
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
+import { toast } from 'react-toastify';
 
 const Contact = () => {
   // const [name, setName] = useState("")
@@ -12,10 +14,10 @@ const Contact = () => {
   const Navigate = useNavigate();
 
   const validationSchema = Yup.object().shape({
-    name: Yup.string().min(5, "Name must be more than 5 Character").
-    required("Please enter your name"),
-    email: Yup.string().email("Email is not valid, Please enter the valid email address..!!").
-    required("Please enter your email"),
+    name: Yup.string().min(5, "Name must be more than 5 Character")
+      .required("Please enter your name"),
+    email: Yup.string().email("Email is not valid, Please enter the valid email address..!!")
+      .required("Please enter your email"),
   });
   const initialValues = {
     name: "",
@@ -25,6 +27,28 @@ const Contact = () => {
   const onFormSubmit = (values) => {
     console.log(values);
     Navigate("/contact")
+
+    // API
+    const getData = {
+      "name": values.name,
+      "email": values.email
+    }
+
+    axios.post("https://jsonplaceholder.typicode.com/posts", getData).then((res) => {
+      if (res.status === 201) {
+        console.log(res.data.id);
+        toast.success('Data created Succesfully..!!', {
+          position: "top-right",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
+      }
+    });
   }
 
   const handleSubmit = () => {

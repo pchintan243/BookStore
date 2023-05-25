@@ -12,6 +12,7 @@ import { ThemeProvider } from '@emotion/react';
 import { theme } from "./styles"
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import Login from './loginPage/Login';
 
 function App() {
   return (
@@ -26,6 +27,7 @@ function App() {
             <Route exact path="/about" element={<About />} />
             <Route exact path="/contact" element={<Contact />} />
             <Route exact path="/services" element={<Services />} />
+            <Route exact path="/login" element={<Login />} />
             <Route exact path="/*" element={<h1>Page Not Found</h1>} />
           </Routes>
         </Router>

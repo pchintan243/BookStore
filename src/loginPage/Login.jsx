@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import axios from 'axios';
 import { toast } from 'react-toastify';
 import { Formik } from 'formik';
-import { Button, FormControl, IconButton, InputAdornment, InputLabel, OutlinedInput, TextField } from '@mui/material';
+import { Button, FormControl, IconButton, InputAdornment, InputLabel, MenuItem, OutlinedInput, Select, TextField } from '@mui/material';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 import * as Yup from "yup";
 import YupPassword from 'yup-password';
@@ -18,7 +18,7 @@ const Login = () => {
     const handleMouseDownPassword = () => setShowPassword(!showPassword);
     useEffect(() => {
         axios.get("https://jsonplaceholder.typicode.com/posts").then((res) => {
-            console.log("Details", res.data);
+            // console.log("Details", res.data);
             setUser(res.data)
         })
     }, [])
@@ -40,7 +40,9 @@ const Login = () => {
 
         Lastname: Yup.string().min(5, "Name must be more than 5 Character")
             .required("Please enter your name")
-            .matches(/^[aA-zZ\s]+$/, "Only alphabets are allowed for this field")
+            .matches(/^[aA-zZ\s]+$/, "Only alphabets are allowed for this field"),
+
+        Role: Yup.string().required("Please Select the Role")
     });
 
     const onFormSubmit = async (values) => {
@@ -51,7 +53,8 @@ const Login = () => {
             "Firstname": values.Firstname,
             "Lastname": values.Lastname,
             "Email": values.Email,
-            "Password": values.Password
+            "Password": values.Password,
+            "Role": values.Role
         }
 
         const res = await axios.post("https://jsonplaceholder.typicode.com/posts", getData)
@@ -88,7 +91,7 @@ const Login = () => {
     return (
         <>
             <Formik
-                initialValues={{ Firstname: '', Lastname: '', Email: '', Password: '' }}
+                initialValues={{ Firstname: '', Lastname: '', Email: '', Password: '', 'Role': '' }}
                 validate={values => {
                     const errors = {};
                     if (!values.Email) {
@@ -189,6 +192,25 @@ const Login = () => {
                                     {errors.Lastname}
                                 </span>
                             )}
+                        </div>
+
+                        {/* Role field */}
+                        <div className='d-flex flex-column m-4'>
+                            <FormControl>
+                                <InputLabel id="demo-simple-select-label">Role</InputLabel>
+                                <Select
+                                    labelId="demo-simple-select-label"
+                                    id="demo-simple-select"
+                                    label="Role"
+                                    name="Role"
+                                    defaultValue=""
+                                    onChange={handleChange}
+                                    onBlur={handleBlur}
+                                >
+                                    <MenuItem value='Buyer'>Buyer</MenuItem>
+                                    <MenuItem value='Seller'>Seller</MenuItem>
+                                </Select>
+                            </FormControl>
                         </div>
 
                         {/* Submit Button */}

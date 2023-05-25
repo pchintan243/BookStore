@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import "./contact.css";
 import { Button, TextField } from '@mui/material';
 import { Formik } from 'formik';
@@ -8,10 +8,15 @@ import axios from 'axios';
 import { toast } from 'react-toastify';
 
 const Contact = () => {
-  // const [name, setName] = useState("")
-  // const [email, setEmail] = useState("")
-  // const [phone, setPhone] = useState()
+  const [user, setUser] = useState([])
   const Navigate = useNavigate();
+
+  useEffect(() => {
+    axios.get("https://jsonplaceholder.typicode.com/posts").then((res) => {
+      console.log("Details", res.data);
+      setUser(res.data)
+    })
+  }, [])
 
   const validationSchema = Yup.object().shape({
     name: Yup.string().min(5, "Name must be more than 5 Character")
@@ -24,7 +29,7 @@ const Contact = () => {
     email: ""
   }
 
-  const onFormSubmit = (values) => {
+  const onFormSubmit = async (values) => {
     console.log(values);
     Navigate("/contact")
 
@@ -34,10 +39,25 @@ const Contact = () => {
       "email": values.email
     }
 
-    axios.post("https://jsonplaceholder.typicode.com/posts", getData).then((res) => {
-      if (res.status === 201) {
+    const res = await axios.post("https://jsonplaceholder.typicode.com/posts", getData)
+    if (res.status === 201) {
+      console.log(res.data.id);
+      toast.success('Data created Succesfully..!!', {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+    }
+    axios.delete("https://jsonplaceholder.typicode.com/posts/1").then((res) => {
+
+      if (res.status === 200) {
         console.log(res.data.id);
-        toast.success('Data created Succesfully..!!', {
+        toast.success('Data Deleted Succesfully..!!', {
           position: "top-right",
           autoClose: 3000,
           hideProgressBar: false,
@@ -48,8 +68,9 @@ const Contact = () => {
           theme: "light",
         });
       }
-    });
+    })
   }
+
 
   const handleSubmit = () => {
 
@@ -106,6 +127,7 @@ const Contact = () => {
           </form>
         )}
       </Formik>
+
     </>
   )
 }

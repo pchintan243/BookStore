@@ -41,42 +41,24 @@ const Contact = () => {
       >
         {({ value, errors, touched, isSubmitting, handleChange, handleBlur, handleSubmit }) => (
           <form onSubmit={handleSubmit}>
-            <div
-              style={{
-                display: "flex",
-                flexDirection: "column",
-                marginBottom: 5,
-              }}
-            >
+            <div className='d-flex flex-column m-4'>
               <TextField
                 variant="outlined"
                 type="text"
                 label="Name"
                 id="name"
                 name="name"
+                // value={name}
                 onChange={handleChange}
                 onBlur={handleBlur}
               />
               {touched.name && (
-                <span
-                  style={{
-                    padding: 5,
-                    color: "red",
-                    fontSize: 16,
-                    fontWeight: 500,
-                  }}
-                >
+                <span className='p-1 fw-bold text-danger'>
                   {errors.name}
                 </span>
               )}
             </div>
-            <div
-              style={{
-                display: "flex",
-                flexDirection: "column",
-                marginBottom: 5,
-              }}
-            >
+            <div className='d-flex flex-column m-4'>
               <TextField
                 variant="outlined"
                 type="email"
@@ -87,19 +69,12 @@ const Contact = () => {
                 onBlur={handleBlur}
               />
               {touched.email && (
-                <span
-                  style={{
-                    padding: 5,
-                    color: "red",
-                    fontSize: 16,
-                    fontWeight: 500,
-                  }}
-                >
+                <span className='p-1 fw-bold text-danger'>
                   {errors.email}
                 </span>
               )}
             </div>
-            <Button variant="contained" type="submit" className="">
+            <Button variant="contained" type="submit" color='error' className='mx-4'>
               Submit
             </Button>
           </form>

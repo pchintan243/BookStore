@@ -12,8 +12,10 @@ const Contact = () => {
   const Navigate = useNavigate();
 
   const validationSchema = Yup.object().shape({
-    name: Yup.string().min(5, "Name must be more than 5 Character"),
-    email: Yup.string().email("Email is not valid, Please enter the valid email address..!!"),
+    name: Yup.string().min(5, "Name must be more than 5 Character").
+    required("Please enter your name"),
+    email: Yup.string().email("Email is not valid, Please enter the valid email address..!!").
+    required("Please enter your email"),
   });
   const initialValues = {
     name: "",

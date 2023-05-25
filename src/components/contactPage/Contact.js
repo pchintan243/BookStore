@@ -50,7 +50,7 @@ const Contact = () => {
         pauseOnHover: true,
         draggable: true,
         progress: undefined,
-        theme: "light",
+        theme: "dark",
       });
     }
     axios.delete("https://jsonplaceholder.typicode.com/posts/1").then((res) => {
@@ -65,7 +65,7 @@ const Contact = () => {
           pauseOnHover: true,
           draggable: true,
           progress: undefined,
-          theme: "light",
+          theme: "dark",
         });
       }
     })

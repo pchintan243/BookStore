@@ -23,11 +23,20 @@ const Main = () => {
             <h1 className='d-flex align-items-center justify-content-center fw-bolder mt-4'>Login or Create an Account</h1>
 
             <hr style={{
-                margin: "0px auto 12px",
+                margin: "10px auto 12px",
                 color: "red",
                 width: "20%",
-                borderWidth: 2
+                borderWidth: 2,
+                marginBottom: '50px'
             }} />
+            <div style={{
+                height: '5px',
+                width: '100px',
+                margin: 'auto',
+                backgroundColor: 'red'
+            }}>
+
+            </div>
         </>
     )
 }

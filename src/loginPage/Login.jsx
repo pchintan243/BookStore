@@ -25,21 +25,23 @@ const Login = () => {
 
     const validationSchema = Yup.object().shape({
         Password: Yup.string()
-            .required('No password provided.')
+            .required('Please Enter the Password')
             .min(8, 'password must contain 8 or more characters with at least one of each: uppercase, lowercase, number and special')
             .minLowercase(1, 'password must contain at least 1 lower case letter')
             .minUppercase(1, 'password must contain at least 1 upper case letter')
             .minNumbers(1, 'password must contain at least 1 number')
             .minSymbols(1, 'password must contain at least 1 special character'),
+
         ConfirmPassword: Yup.string()
+            .required('Please Enter the Password')
             .oneOf([Yup.ref('Password'), null], 'Passwords are not matching..!!'),
 
-        Firstname: Yup.string().min(5, "Name must be more than 5 Character")
-            .required("Please enter your name")
+        Firstname: Yup.string().min(5, "FirstName must be more than 4 Character")
+            .required("Please Enter Your FIrstname")
             .matches(/^[aA-zZ\s]+$/, "Only alphabets are allowed for this field"),
 
-        Lastname: Yup.string().min(5, "Name must be more than 5 Character")
-            .required("Please enter your name")
+        Lastname: Yup.string().min(5, "LastName must be more than 4 Character")
+            .required("Please Enter Your Lastname")
             .matches(/^[aA-zZ\s]+$/, "Only alphabets are allowed for this field"),
 
         Role: Yup.string().required("Please Select the Role")
@@ -54,6 +56,7 @@ const Login = () => {
             "Lastname": values.Lastname,
             "Email": values.Email,
             "Password": values.Password,
+            "ConfirmPassword": values.ConfirmPassword,
             "Role": values.Role
         }
 
@@ -71,8 +74,8 @@ const Login = () => {
                 theme: "dark",
             });
         }
-        axios.delete("https://jsonplaceholder.typicode.com/posts/1").then((res) => {
 
+        axios.delete("https://jsonplaceholder.typicode.com/posts/1").then((res) => {
             if (res.status === 200) {
                 console.log(res.data.id);
                 toast.success('Data Deleted Succesfully..!!', {
@@ -91,7 +94,7 @@ const Login = () => {
     return (
         <>
             <Formik
-                initialValues={{ Firstname: '', Lastname: '', Email: '', Password: '', 'Role': '' }}
+                initialValues={{ Firstname: '', Lastname: '', Email: '', Password: '', ConfirmPassword: '', 'Role': '' }}
                 validate={values => {
                     const errors = {};
                     if (!values.Email) {
@@ -109,6 +112,42 @@ const Login = () => {
                 {({ values, errors, touched, handleChange, handleBlur, handleSubmit, isSubmitting }) => (
                     <form onSubmit={handleSubmit}>
 
+                        {/* Firstname Field */}
+                        <div className='d-flex flex-column m-4'>
+                            <TextField
+                                variant="outlined"
+                                type="text"
+                                label="Firstname"
+                                id="firstname"
+                                name="Firstname"
+                                onChange={handleChange}
+                                onBlur={handleBlur}
+                            />
+                            {touched.Firstname && (
+                                <span className='p-1 fw-bold text-danger'>
+                                    {errors.Firstname}
+                                </span>
+                            )}
+                        </div>
+
+                        {/* Lastname Field */}
+                        <div className='d-flex flex-column m-4'>
+                            <TextField
+                                variant="outlined"
+                                type="text"
+                                label="Lastname"
+                                id="lastname"
+                                name="Lastname"
+                                onChange={handleChange}
+                                onBlur={handleBlur}
+                            />
+                            {touched.Lastname && (
+                                <span className='p-1 fw-bold text-danger'>
+                                    {errors.Lastname}
+                                </span>
+                            )}
+                        </div>
+
                         {/* Email field */}
                         <div className='d-flex flex-column m-4'>
                             <TextField
@@ -123,6 +162,30 @@ const Login = () => {
                             {errors.Email && touched.Email && (
                                 <span className='p-1 fw-bold text-danger'>
                                     {errors.Email}
+                                </span>
+                            )}
+                        </div>
+
+                        {/* Role field */}
+                        <div className='d-flex flex-column m-4'>
+                            <FormControl>
+                                <InputLabel id="demo-simple-select-label">Role</InputLabel>
+                                <Select
+                                    labelId="demo-simple-select-label"
+                                    id="demo-simple-select"
+                                    label="Role"
+                                    name="Role"
+                                    defaultValue=""
+                                    onChange={handleChange}
+                                    onBlur={handleBlur}
+                                >
+                                    <MenuItem value='Buyer'>Buyer</MenuItem>
+                                    <MenuItem value='Seller'>Seller</MenuItem>
+                                </Select>
+                            </FormControl>
+                            {touched.Role && (
+                                <span className='p-1 fw-bold text-danger'>
+                                    {errors.Role}
                                 </span>
                             )}
                         </div>
@@ -157,60 +220,21 @@ const Login = () => {
                             )}
                         </div>
 
-                        {/* Firstname Field */}
+                        {/* ConfirmPassword field */}
                         <div className='d-flex flex-column m-4'>
                             <TextField
                                 variant="outlined"
-                                type="text"
-                                label="Firstname"
-                                id="firstname"
-                                name="Firstname"
+                                type={"password"}
+                                label='Confirm Password'
+                                name='ConfirmPassword'
                                 onChange={handleChange}
                                 onBlur={handleBlur}
                             />
-                            {touched.Firstname && (
+                            {errors.ConfirmPassword && touched.ConfirmPassword && (
                                 <span className='p-1 fw-bold text-danger'>
-                                    {errors.Firstname}
+                                    {errors.ConfirmPassword}
                                 </span>
                             )}
-                        </div>
-
-
-                        {/* Lastname Field */}
-                        <div className='d-flex flex-column m-4'>
-                            <TextField
-                                variant="outlined"
-                                type="text"
-                                label="Lastname"
-                                id="lastname"
-                                name="Lastname"
-                                onChange={handleChange}
-                                onBlur={handleBlur}
-                            />
-                            {touched.Lastname && (
-                                <span className='p-1 fw-bold text-danger'>
-                                    {errors.Lastname}
-                                </span>
-                            )}
-                        </div>
-
-                        {/* Role field */}
-                        <div className='d-flex flex-column m-4'>
-                            <FormControl>
-                                <InputLabel id="demo-simple-select-label">Role</InputLabel>
-                                <Select
-                                    labelId="demo-simple-select-label"
-                                    id="demo-simple-select"
-                                    label="Role"
-                                    name="Role"
-                                    defaultValue=""
-                                    onChange={handleChange}
-                                    onBlur={handleBlur}
-                                >
-                                    <MenuItem value='Buyer'>Buyer</MenuItem>
-                                    <MenuItem value='Seller'>Seller</MenuItem>
-                                </Select>
-                            </FormControl>
                         </div>
 
                         {/* Submit Button */}

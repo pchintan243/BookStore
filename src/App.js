@@ -14,6 +14,7 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Login from './loginPage/Login';
 import Footer from './components/Footer';
+import Signup from './components/signup/Signup';
 
 function App() {
   return (
@@ -28,6 +29,7 @@ function App() {
             <Route exact path="/about" element={<About />} />
             <Route exact path="/contact" element={<Contact />} />
             <Route exact path="/services" element={<Services />} />
+            <Route exact path="/signup" element={<Signup />} />
             <Route exact path="/login" element={<Login />} />
             <Route exact path="/*" element={<h1>Page Not Found</h1>} />
           </Routes>

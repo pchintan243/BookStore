@@ -39,6 +39,7 @@ const Navbar = () => {
           <li><Link to="/contact">Contact</Link></li>
           <li><Link to="/services">Services</Link></li>
           <li><Link to="/login">Login</Link></li>
+          <li><Link to="/signup">SignUp</Link></li>
         </ul>
         <div onClick={handleClick}>
           <Avatar sx={{ bgcolor: "blue", cursor: "pointer" }}>CP</Avatar>

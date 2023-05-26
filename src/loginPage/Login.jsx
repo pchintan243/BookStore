@@ -110,138 +110,142 @@ const Login = () => {
                 onSubmit={onFormSubmit}
             >
                 {({ values, errors, touched, handleChange, handleBlur, handleSubmit, isSubmitting }) => (
-                    <form onSubmit={handleSubmit}>
+                    <div className="container">
+                        <form onSubmit={handleSubmit} className='row'>
 
-                        {/* Firstname Field */}
-                        <div className='d-flex flex-column m-4'>
-                            <TextField
-                                variant="outlined"
-                                type="text"
-                                label="Firstname"
-                                id="firstname"
-                                name="Firstname"
-                                onChange={handleChange}
-                                onBlur={handleBlur}
-                            />
-                            {touched.Firstname && (
-                                <span className='p-1 fw-bold text-danger'>
-                                    {errors.Firstname}
-                                </span>
-                            )}
-                        </div>
-
-                        {/* Lastname Field */}
-                        <div className='d-flex flex-column m-4'>
-                            <TextField
-                                variant="outlined"
-                                type="text"
-                                label="Lastname"
-                                id="lastname"
-                                name="Lastname"
-                                onChange={handleChange}
-                                onBlur={handleBlur}
-                            />
-                            {touched.Lastname && (
-                                <span className='p-1 fw-bold text-danger'>
-                                    {errors.Lastname}
-                                </span>
-                            )}
-                        </div>
-
-                        {/* Email field */}
-                        <div className='d-flex flex-column m-4'>
-                            <TextField
-                                variant="outlined"
-                                type="email"
-                                label="Email"
-                                id="email"
-                                name="Email"
-                                onChange={handleChange}
-                                onBlur={handleBlur}
-                            />
-                            {errors.Email && touched.Email && (
-                                <span className='p-1 fw-bold text-danger'>
-                                    {errors.Email}
-                                </span>
-                            )}
-                        </div>
-
-                        {/* Role field */}
-                        <div className='d-flex flex-column m-4'>
-                            <FormControl>
-                                <InputLabel id="demo-simple-select-label">Role</InputLabel>
-                                <Select
-                                    labelId="demo-simple-select-label"
-                                    id="demo-simple-select"
-                                    label="Role"
-                                    name="Role"
-                                    defaultValue=""
+                            {/* Firstname Field */}
+                            <div className='d-flex flex-column m-4 col-md-5'>
+                                <TextField
+                                    variant="outlined"
+                                    type="text"
+                                    label="Firstname"
+                                    id="firstname"
+                                    name="Firstname"
                                     onChange={handleChange}
                                     onBlur={handleBlur}
-                                >
-                                    <MenuItem value='Buyer'>Buyer</MenuItem>
-                                    <MenuItem value='Seller'>Seller</MenuItem>
-                                </Select>
-                            </FormControl>
-                            {touched.Role && (
-                                <span className='p-1 fw-bold text-danger'>
-                                    {errors.Role}
-                                </span>
-                            )}
-                        </div>
+                                />
+                                {touched.Firstname && (
+                                    <span className='p-1 fw-bold text-danger'>
+                                        {errors.Firstname}
+                                    </span>
+                                )}
+                            </div>
 
-                        {/* Password field */}
-                        <div className='d-flex flex-column m-4'>
-                            <TextField
-                                variant="outlined"
-                                type={showPassword ? "text" : "password"}
-                                label='Password'
-                                name='Password'
-                                onChange={handleChange}
-                                onBlur={handleBlur}
-                                InputProps={{
-                                    endAdornment: (
-                                        <InputAdornment position="end">
-                                            <IconButton
-                                                aria-label="toggle password visibility"
-                                                onClick={handleClickShowPassword}
-                                                onMouseDown={handleMouseDownPassword}
-                                            >
-                                                {showPassword ? <VisibilityOff /> : <Visibility />}
-                                            </IconButton>
-                                        </InputAdornment>
-                                    )
-                                }}
-                            />
-                            {errors.Password && touched.Password && (
-                                <span className='p-1 fw-bold text-danger'>
-                                    {errors.Password}
-                                </span>
-                            )}
-                        </div>
+                            {/* Lastname Field */}
+                            <div className='d-flex flex-column m-4 col-md-5'>
+                                <TextField
+                                    variant="outlined"
+                                    type="text"
+                                    label="Lastname"
+                                    id="lastname"
+                                    name="Lastname"
+                                    onChange={handleChange}
+                                    onBlur={handleBlur}
+                                />
+                                {touched.Lastname && (
+                                    <span className='p-1 fw-bold text-danger'>
+                                        {errors.Lastname}
+                                    </span>
+                                )}
+                            </div>
 
-                        {/* ConfirmPassword field */}
-                        <div className='d-flex flex-column m-4'>
-                            <TextField
-                                variant="outlined"
-                                type={"password"}
-                                label='Confirm Password'
-                                name='ConfirmPassword'
-                                onChange={handleChange}
-                                onBlur={handleBlur}
-                            />
-                            {errors.ConfirmPassword && touched.ConfirmPassword && (
-                                <span className='p-1 fw-bold text-danger'>
-                                    {errors.ConfirmPassword}
-                                </span>
-                            )}
-                        </div>
+                            {/* Email field */}
+                            <div className='d-flex flex-column m-4 col-md-5'>
+                                <TextField
+                                    variant="outlined"
+                                    type="email"
+                                    label="Email"
+                                    id="email"
+                                    name="Email"
+                                    onChange={handleChange}
+                                    onBlur={handleBlur}
+                                />
+                                {errors.Email && touched.Email && (
+                                    <span className='p-1 fw-bold text-danger'>
+                                        {errors.Email}
+                                    </span>
+                                )}
+                            </div>
 
-                        {/* Submit Button */}
-                        <Button variant="contained" type="submit" color='error' className='mx-4'>
-                            Submit
-                        </Button>
-                    </form>
+                            {/* Role field */}
+                            <div className='d-flex flex-column m-4 col-md-5'>
+                                <FormControl>
+                                    <InputLabel id="demo-simple-select-label">Role</InputLabel>
+                                    <Select
+                                        labelId="demo-simple-select-label"
+                                        id="demo-simple-select"
+                                        label="Role"
+                                        name="Role"
+                                        defaultValue=""
+                                        onChange={handleChange}
+                                        onBlur={handleBlur}
+                                    >
+                                        <MenuItem value='Buyer'>Buyer</MenuItem>
+                                        <MenuItem value='Seller'>Seller</MenuItem>
+                                    </Select>
+                                </FormControl>
+                                {touched.Role && (
+                                    <span className='p-1 fw-bold text-danger'>
+                                        {errors.Role}
+                                    </span>
+                                )}
+                            </div>
+
+                            {/* Password field */}
+                            <div className='d-flex flex-column m-4 col-md-5'>
+                                <TextField
+                                    variant="outlined"
+                                    type={showPassword ? "text" : "password"}
+                                    label='Password'
+                                    name='Password'
+                                    onChange={handleChange}
+                                    onBlur={handleBlur}
+                                    InputProps={{
+                                        endAdornment: (
+                                            <InputAdornment position="end">
+                                                <IconButton
+                                                    aria-label="toggle password visibility"
+                                                    onClick={handleClickShowPassword}
+                                                    onMouseDown={handleMouseDownPassword}
+                                                >
+                                                    {showPassword ? <VisibilityOff /> : <Visibility />}
+                                                </IconButton>
+                                            </InputAdornment>
+                                        )
+                                    }}
+                                />
+                                {errors.Password && touched.Password && (
+                                    <span className='p-1 fw-bold text-danger'>
+                                        {errors.Password}
+                                    </span>
+                                )}
+                            </div>
+
+                            {/* ConfirmPassword field */}
+                            <div className='d-flex flex-column m-4 col-md-5'>
+                                <TextField
+                                    variant="outlined"
+                                    type={"password"}
+                                    label='Confirm Password'
+                                    name='ConfirmPassword'
+                                    onChange={handleChange}
+                                    onBlur={handleBlur}
+                                />
+                                {errors.ConfirmPassword && touched.ConfirmPassword && (
+                                    <span className='p-1 fw-bold text-danger'>
+                                        {errors.ConfirmPassword}
+                                    </span>
+                                )}
+                            </div>
+
+                            {/* Submit Button */}
+                            <div className="col-12 mx-4">
+                                <Button variant="contained" type="submit" color='error' className=''>
+                                    Submit
+                                </Button>
+                            </div>
+                        </form>
+                    </div>
                 )}
             </Formik>
         </>

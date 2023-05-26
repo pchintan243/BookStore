@@ -30,8 +30,10 @@ const Navbar = () => {
   return (
     <>
       <nav className="header">
-        <h1 className="logo">BookStore</h1>
-        <ul className="main-nav">
+        <div>
+          <img src={`${process.env.REACT_APP_LOGO}`} className="d-block w-50 h-100 ms-5" alt="logo" />
+        </div>
+        <ul className="main-nav m-0">
           <li><Link to="/">Home</Link></li>
           <li><Link to="/about">About</Link></li>
           <li><Link to="/contact">Contact</Link></li>

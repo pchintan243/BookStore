@@ -13,6 +13,7 @@ import { theme } from "./styles"
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Login from './loginPage/Login';
+import Footer from './components/Footer';
 
 function App() {
   return (
@@ -32,6 +33,7 @@ function App() {
           </Routes>
         </Router>
       </ThemeProvider>
+      <Footer />
     </>
   );
 }

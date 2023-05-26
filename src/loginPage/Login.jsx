@@ -6,6 +6,7 @@ import { Button, FormControl, IconButton, InputAdornment, InputLabel, MenuItem, 
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 import * as Yup from "yup";
 import YupPassword from 'yup-password';
+import Search from '../components/Search';
 YupPassword(Yup);
 
 const Login = () => {
@@ -33,11 +34,11 @@ const Login = () => {
             .minSymbols(1, 'password must contain at least 1 special character'),
 
         ConfirmPassword: Yup.string()
-            .required('Please Enter the Password')
+            .required('Please Enter the Password Again')
             .oneOf([Yup.ref('Password'), null], 'Passwords are not matching..!!'),
 
         Firstname: Yup.string().min(5, "FirstName must be more than 4 Character")
-            .required("Please Enter Your FIrstname")
+            .required("Please Enter Your Firstname")
             .matches(/^[aA-zZ\s]+$/, "Only alphabets are allowed for this field"),
 
         Lastname: Yup.string().min(5, "LastName must be more than 4 Character")
@@ -93,6 +94,30 @@ const Login = () => {
     }
     return (
         <>
+            {/* Search Functionality */}
+            <Search />
+
+            {/* Navbar page show */}
+            <nav className='d-flex align-items-center justify-content-center navbar navbar-expand-lg navbar-light bg-light'>
+                <ul className='d-flex align-items-center justify-content-center'>
+                    <li className='m-1 my-3'>
+                        <a href="/" className='nav-link' style={{ fontSize: 18 }}>Home</a>
+                    </li>
+                    <li className='m-1 my-3'>&#62;</li>
+                    <li className='m-1 my-3 text-danger fw-bold'>
+                        <a href="/" className='nav-link' style={{ fontSize: 18 }}>Sign Up</a>
+                    </li>
+                </ul>
+            </nav>
+
+            <h1 className='d-flex align-items-center justify-content-center fw-bolder mt-4'>Login or Create an Account</h1>
+
+            <hr style={{
+                margin: "0px auto 12px",
+                color: "red",
+                width: "20%",
+                borderWidth: 2
+            }} />
             <Formik
                 initialValues={{ Firstname: '', Lastname: '', Email: '', Password: '', ConfirmPassword: '', 'Role': '' }}
                 validate={values => {
@@ -111,7 +136,29 @@ const Login = () => {
             >
                 {({ values, errors, touched, handleChange, handleBlur, handleSubmit, isSubmitting }) => (
                     <div className="container">
-                        <form onSubmit={handleSubmit} className='row'>
+                        <h2 style={{
+                            marginLeft: "69px",
+                            fontSize: '20px',
+                            fontWeight: 600
+                        }}>
+                            Personal Information
+                        </h2>
+
+                        <hr style={{
+                            margin: "20px 70px",
+                            width: "87.3%",
+                            borderWidth: 2,
+                            color: '#808080b0'
+                        }} />
+
+                        <h6 style={{
+                            marginLeft: "69px",
+                            color: 'grey',
+                            fontWeight: 300
+                        }}>
+                            Please enter the following information to create your account.
+                        </h6>
+                        <form onSubmit={handleSubmit} className='row d-flex align-items-center justify-content-center'>
 
                             {/* Firstname Field */}
                             <div className='d-flex flex-column m-4 col-md-5'>
@@ -191,6 +238,22 @@ const Login = () => {
                                 )}
                             </div>
 
+                            <h2 style={{
+                                width: '90%',
+                                marginLeft: "30px",
+                                fontSize: '20px',
+                                fontWeight: 600
+                            }}>
+                                Login Information
+                            </h2>
+
+                            <hr style={{
+                                margin: "5px 35px",
+                                width: "85.3%",
+                                borderWidth: 2,
+                                color: '#808080b0'
+                            }} />
+
                             {/* Password field */}
                             <div className='d-flex flex-column m-4 col-md-5'>
                                 <TextField
@@ -239,9 +302,11 @@ const Login = () => {
                             </div>
 
                             {/* Submit Button */}
-                            <div className="col-12 mx-4">
-                                <Button variant="contained" type="submit" color='error' className=''>
-                                    Submit
+                            <div className="col-12">
+                                <Button variant="contained" type="submit" color='error' className='' style={{
+                                    margin: '8px 70px'
+                                }}>
+                                    Register
                                 </Button>
                             </div>
                         </form>

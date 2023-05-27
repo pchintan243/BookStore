@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import axios from 'axios';
 import { toast } from 'react-toastify';
-import Main from '../components/Main'
+import Main from '../components/main/Main'
 import * as Yup from "yup";
 import { Formik } from 'formik';
 import { Button, IconButton, InputAdornment, TextField } from '@mui/material';

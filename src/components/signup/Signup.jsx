@@ -3,13 +3,14 @@ import axios from 'axios';
 import { toast } from 'react-toastify';
 import { Formik } from 'formik';
 import { Button, FormControl, IconButton, InputAdornment, InputLabel, MenuItem, Select, TextField } from '@mui/material';
-import { ErrorSharp, Visibility, VisibilityOff } from '@mui/icons-material';
+import { Visibility, VisibilityOff } from '@mui/icons-material';
 import * as Yup from "yup";
 import YupPassword from 'yup-password';
-import Main from '../Main';
+import Main from '../main/Main';
 YupPassword(Yup);
 
 const Signup = () => {
+    // eslint-disable-next-line
     const [user, setUser] = useState([])
 
     const [showPassword, setShowPassword] = useState(false);

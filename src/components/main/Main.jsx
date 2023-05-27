@@ -1,5 +1,7 @@
 import React from 'react'
-import Search from './Search'
+import Search from '../Search'
+import { Link } from 'react-router-dom'
+import "./main.css"
 
 const Main = () => {
     return (
@@ -10,12 +12,12 @@ const Main = () => {
             {/* Navbar page show */}
             <nav className='d-flex align-items-center justify-content-center navbar navbar-expand-lg navbar-light bg-light'>
                 <ul className='d-flex align-items-center justify-content-center'>
-                    <li className='m-1 my-3'>
-                        <a href="/" className='nav-link' style={{ fontSize: 18 }}>Home</a>
+                    <li className='m-1 my-3 li-tag'>
+                        <Link to="/" className='nav-link' style={{ fontSize: 18 }}>Home</Link>
                     </li>
-                    <li className='m-1 my-3'>&#62;</li>
-                    <li className='m-1 my-3 text-danger fw-bold'>
-                        <a href="/" className='nav-link' style={{ fontSize: 18 }}>Sign Up</a>
+                    <li className='m-1 my-3 li-tag'>&#62;</li>
+                    <li className='m-1 my-3 text-danger fw-bold li-tag'>
+                        <Link to="/" className='nav-link' style={{ fontSize: 18 }}>Sign Up</Link>
                     </li>
                 </ul>
             </nav>

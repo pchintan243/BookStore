@@ -137,7 +137,7 @@ const Login = () => {
                                 <form onSubmit={handleSubmit} className=''>
 
                                     {/* Email field */}
-                                    <div className='d-flex flex-column m-4 col-md-8'>
+                                    <div className='d-flex flex-column m-4 my-5 col-md-8 position-relative'>
                                         <TextField
                                             variant="outlined"
                                             type="email"
@@ -148,14 +148,20 @@ const Login = () => {
                                             onBlur={handleBlur}
                                         />
                                         {errors.Email && touched.Email && (
-                                            <span className='p-1 fw-bold text-danger'>
+                                            <span className='p-1 fw-bold text-danger'
+                                                style={{
+                                                    position: 'absolute',
+                                                    top: '100%',
+                                                    fontSize:'15px'
+                                                }}
+                                            >
                                                 {errors.Email}
                                             </span>
                                         )}
                                     </div>
 
                                     {/* Password field */}
-                                    <div className='d-flex flex-column m-4 col-md-8'>
+                                    <div className='d-flex flex-column m-4 my-5 col-md-8 position-relative'>
                                         <TextField
                                             variant="outlined"
                                             type={showPassword ? "text" : "password"}
@@ -178,7 +184,13 @@ const Login = () => {
                                             }}
                                         />
                                         {errors.Password && touched.Password && (
-                                            <span className='p-1 fw-bold text-danger'>
+                                            <span className='p-1 fw-bold text-danger'
+                                                style={{
+                                                    position: 'absolute',
+                                                    top: '100%',
+                                                    fontSize:'15px'
+                                                }}
+                                            >
                                                 {errors.Password}
                                             </span>
                                         )}
@@ -187,9 +199,11 @@ const Login = () => {
 
                                     {/* Submit Button */}
                                     <div className="col-12">
-                                        <Button variant="contained" type="submit" color='error' className='' style={{
-                                            margin: '8px 27px'
-                                        }}>
+                                        <Button variant="contained" type="submit" color='error' className=''
+                                            style={{
+                                                margin: '0px 27px'
+                                            }}
+                                        >
                                             Login
                                         </Button>
                                     </div>

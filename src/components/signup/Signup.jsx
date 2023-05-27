@@ -3,7 +3,7 @@ import axios from 'axios';
 import { toast } from 'react-toastify';
 import { Formik } from 'formik';
 import { Button, FormControl, IconButton, InputAdornment, InputLabel, MenuItem, Select, TextField } from '@mui/material';
-import { Visibility, VisibilityOff } from '@mui/icons-material';
+import { ErrorSharp, Visibility, VisibilityOff } from '@mui/icons-material';
 import * as Yup from "yup";
 import YupPassword from 'yup-password';
 import Main from '../Main';
@@ -137,7 +137,7 @@ const Signup = () => {
                         <form onSubmit={handleSubmit} className='row d-flex align-items-center justify-content-center'>
 
                             {/* Firstname Field */}
-                            <div className='d-flex flex-column m-4 col-md-5'>
+                            <div className='d-flex flex-column m-4 col-md-5 position-relative'>
                                 <TextField
                                     variant="outlined"
                                     type="text"
@@ -148,14 +148,20 @@ const Signup = () => {
                                     onBlur={handleBlur}
                                 />
                                 {touched.Firstname && (
-                                    <span className='p-1 fw-bold text-danger'>
+                                    <span className='p-1 fw-bold text-danger'
+                                        style={{
+                                            position: 'absolute',
+                                            top: '100%',
+                                            fontSize: '15px'
+                                        }}
+                                    >
                                         {errors.Firstname}
                                     </span>
                                 )}
                             </div>
 
                             {/* Lastname Field */}
-                            <div className='d-flex flex-column m-4 col-md-5'>
+                            <div className='d-flex flex-column m-4 col-md-5 position-relative'>
                                 <TextField
                                     variant="outlined"
                                     type="text"
@@ -166,14 +172,20 @@ const Signup = () => {
                                     onBlur={handleBlur}
                                 />
                                 {touched.Lastname && (
-                                    <span className='p-1 fw-bold text-danger'>
+                                    <span className='p-1 fw-bold text-danger'
+                                        style={{
+                                            position: 'absolute',
+                                            top: '100%',
+                                            fontSize: '15px'
+                                        }}
+                                    >
                                         {errors.Lastname}
                                     </span>
                                 )}
                             </div>
 
                             {/* Email field */}
-                            <div className='d-flex flex-column m-4 col-md-5'>
+                            <div className='d-flex flex-column m-4 col-md-5 position-relative'>
                                 <TextField
                                     variant="outlined"
                                     type="email"
@@ -184,14 +196,20 @@ const Signup = () => {
                                     onBlur={handleBlur}
                                 />
                                 {errors.Email && touched.Email && (
-                                    <span className='p-1 fw-bold text-danger'>
+                                    <span className='p-1 fw-bold text-danger'
+                                        style={{
+                                            position: 'absolute',
+                                            top: '100%',
+                                            fontSize: '15px'
+                                        }}
+                                    >
                                         {errors.Email}
                                     </span>
                                 )}
                             </div>
 
                             {/* Role field */}
-                            <div className='d-flex flex-column m-4 col-md-5'>
+                            <div className='d-flex flex-column m-4 col-md-5 position-relative'>
                                 <FormControl>
                                     <InputLabel id="demo-simple-select-label">Role</InputLabel>
                                     <Select
@@ -208,7 +226,13 @@ const Signup = () => {
                                     </Select>
                                 </FormControl>
                                 {touched.Role && (
-                                    <span className='p-1 fw-bold text-danger'>
+                                    <span className='p-1 fw-bold text-danger'
+                                        style={{
+                                            position: 'absolute',
+                                            top: '100%',
+                                            fontSize: '15px'
+                                        }}
+                                    >
                                         {errors.Role}
                                     </span>
                                 )}
@@ -217,6 +241,7 @@ const Signup = () => {
                             <h2 style={{
                                 width: '90%',
                                 marginLeft: "30px",
+                                marginTop: "30px",
                                 fontSize: '20px',
                                 fontWeight: 600
                             }}>
@@ -231,7 +256,7 @@ const Signup = () => {
                             }} />
 
                             {/* Password field */}
-                            <div className='d-flex flex-column m-4 col-md-5'>
+                            <div className='d-flex flex-column m-4 col-md-5 position-relative'>
                                 <TextField
                                     variant="outlined"
                                     type={showPassword ? "text" : "password"}
@@ -254,14 +279,20 @@ const Signup = () => {
                                     }}
                                 />
                                 {errors.Password && touched.Password && (
-                                    <span className='p-1 fw-bold text-danger'>
+                                    <span className='p-1 fw-bold text-danger'
+                                        style={{
+                                            position: 'absolute',
+                                            top: '100%',
+                                            fontSize: '15px'
+                                        }}
+                                    >
                                         {errors.Password}
                                     </span>
                                 )}
                             </div>
 
                             {/* ConfirmPassword field */}
-                            <div className='d-flex flex-column m-4 col-md-5'>
+                            <div className='d-flex flex-column m-4 col-md-5 position-relative'>
                                 <TextField
                                     variant="outlined"
                                     type={"password"}
@@ -271,7 +302,13 @@ const Signup = () => {
                                     onBlur={handleBlur}
                                 />
                                 {errors.ConfirmPassword && touched.ConfirmPassword && (
-                                    <span className='p-1 fw-bold text-danger'>
+                                    <span className='p-1 fw-bold text-danger'
+                                        style={{
+                                            position: 'absolute',
+                                            top: '100%',
+                                            fontSize: '15px'
+                                        }}
+                                    >
                                         {errors.ConfirmPassword}
                                     </span>
                                 )}
@@ -286,9 +323,9 @@ const Signup = () => {
                                 </Button>
                             </div>
                         </form>
-                    </div>
+                    </div >
                 )}
-            </Formik>
+            </Formik >
         </>
     )
 }

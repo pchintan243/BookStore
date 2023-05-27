@@ -2,8 +2,10 @@ import React from 'react'
 import Search from '../Search'
 import { Link } from 'react-router-dom'
 import "./main.css"
+import { useLocation } from 'react-router-dom'
 
 const Main = () => {
+    const location = useLocation();
     return (
         <>
             {/* Search Functionality */}
@@ -17,7 +19,7 @@ const Main = () => {
                     </li>
                     <li className='m-1 my-3 li-tag'>&#62;</li>
                     <li className='m-1 my-3 text-danger fw-bold li-tag'>
-                        <Link to="/" className='nav-link' style={{ fontSize: 18 }}>Sign Up</Link>
+                        <span className='span-tag'>{location.pathname === "/login" ? ('Login') : ('SignUp')}</span>
                     </li>
                 </ul>
             </nav>

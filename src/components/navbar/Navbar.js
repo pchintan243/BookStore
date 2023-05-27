@@ -83,7 +83,7 @@ const Navbar = () => {
             <LogoutIcon style={{ cursor: "pointer" }} onClick={onHomePage} />
           </div>
         </Popover> */}
-      </nav >
+      </nav>
     </>
   )
 }

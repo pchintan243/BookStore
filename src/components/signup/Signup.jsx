@@ -316,17 +316,17 @@ const Signup = () => {
                             </div>
 
                             {/* Submit Button */}
-                            <div className="col-12">
+                            <div>
                                 <Button variant="contained" type="submit" color='error' className='' style={{
-                                    margin: '8px 70px'
+                                    margin: '8px 90px'
                                 }}>
                                     Register
                                 </Button>
                             </div>
                         </form>
-                    </div >
+                    </div>
                 )}
-            </Formik >
+            </Formik>
         </>
     )
 }

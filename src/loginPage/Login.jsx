@@ -65,38 +65,46 @@ const Login = () => {
         <>
             <Main />
             <div className='container d-flex mt-20'>
-                <div style={{ width: "50%" }}>
-                    <h2 style={{
-                        fontWeight: 'bolder',
-                        marginBottom: 16,
-                        fontSize: 25
-                    }}>
-                        New Customers
-                    </h2>
-                    <hr style={{
-                        margin: "15px 0px",
-                        width: "60%",
-                        borderWidth: 2,
-                        color: '#808080b0'
-                    }} />
-                    <p style={{
-                        color: 'grey'
-                    }}>
-                        Registration is free and easy.
-                    </p>
-                    <ul style={{
-                        margin: 15,
-                        listStyleType: 'disc'
-                    }}>
-                        <li>Faster checkout</li>
-                        <li>Save multiple shipping addresses</li>
-                        <li>View and track orders and more</li>
-                    </ul>
+                <div style={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    justifyContent: 'space-between',
+                    width: "50%"
+                }}>
+                    <div>
+                        <h2 style={{
+                            fontWeight: 'bolder',
+                            marginBottom: 16,
+                            fontSize: 25
+                        }}>
+                            New Customers
+                        </h2>
+                        <hr style={{
+                            margin: "15px 0px",
+                            width: "60%",
+                            borderWidth: 2,
+                            color: '#808080b0'
+                        }} />
+                        <p style={{
+                            color: 'grey'
+                        }}>
+                            Registration is free and easy.
+                        </p>
+                        <ul style={{
+                            listStyleType: 'disc',
+                            fontSize:'1.1rem'
+                        }}>
+                            <li>Faster checkout</li>
+                            <li>Save multiple shipping addresses</li>
+                            <li>View and track orders and more</li>
+                        </ul>
+                    </div>
+
                     {/* Submit Button */}
-                    <div className="col-12">
+                    <div>
                         <a href="/signup">
                             <Button variant="contained" type="submit" color='error' className='' style={{
-                                top: '84px'
+
                             }}>
                                 CREATE A NEW ACCOUNT
                             </Button>
@@ -152,7 +160,7 @@ const Login = () => {
                                                 style={{
                                                     position: 'absolute',
                                                     top: '100%',
-                                                    fontSize:'15px'
+                                                    fontSize: '15px'
                                                 }}
                                             >
                                                 {errors.Email}
@@ -188,7 +196,7 @@ const Login = () => {
                                                 style={{
                                                     position: 'absolute',
                                                     top: '100%',
-                                                    fontSize:'15px'
+                                                    fontSize: '15px'
                                                 }}
                                             >
                                                 {errors.Password}

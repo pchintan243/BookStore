@@ -50,36 +50,17 @@ const Signup = () => {
     });
     const onFormSubmit = async (values) => {
         console.log(values);
-
-        // API
-        const getData = {
-            "Firstname": values.Firstname,
-            "Lastname": values.Lastname,
-            "Email": values.Email,
-            "Password": values.Password,
-            "ConfirmPassword": values.ConfirmPassword,
-            "Role": values.Role
-        }
-
-        const res = await axios.post("https://jsonplaceholder.typicode.com/posts", getData)
-        if (res.status === 201) {
-            console.log(res.data.id);
-            toast.success('Data created Succesfully..!!', {
-                position: "top-right",
-                autoClose: 3000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-                theme: "dark",
+        try {
+            const res = await axios.post("https://jsonplaceholder.typicode.com/posts", {
+                data: {
+                    ...values
+                }
             });
-        }
-
-        axios.delete("https://jsonplaceholder.typicode.com/posts/1").then((res) => {
-            if (res.status === 200) {
+            const data = res.data;
+            console.log(data)
+            if (res.status === 201) {
                 console.log(res.data.id);
-                toast.success('Data Deleted Succesfully..!!', {
+                toast.success('Data created Succesfully..!!', {
                     position: "top-right",
                     autoClose: 3000,
                     hideProgressBar: false,
@@ -90,7 +71,28 @@ const Signup = () => {
                     theme: "dark",
                 });
             }
-        })
+
+            axios.delete("https://jsonplaceholder.typicode.com/posts/1").then((res) => {
+                if (res.status === 200) {
+                    console.log(res.data.id);
+                    toast.success('Data Deleted Succesfully..!!', {
+                        position: "top-right",
+                        autoClose: 3000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                        theme: "dark",
+                    });
+                }
+            })
+        }
+        catch (err) {
+            console.log(err);
+            toast("Error" + err);
+        }
+
     }
     return (
         <>

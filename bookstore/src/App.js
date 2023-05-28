@@ -1,6 +1,5 @@
 import React from 'react'
 import './App.css';
-import Contact from './components/contactPage/Contact';
 import Navbar from './components/navbar/Navbar';
 import Home from './components/Home';
 import About from './components/About';
@@ -27,7 +26,6 @@ function App() {
             <Route exact path="/" element={<Home />} />
             <Route exact path="/BookStore" element={<Navigate to="/" />}></Route>
             <Route exact path="/about" element={<About />} />
-            <Route exact path="/contact" element={<Contact />} />
             <Route exact path="/services" element={<Services />} />
             <Route exact path="/signup" element={<Signup />} />
             <Route exact path="/login" element={<Login />} />

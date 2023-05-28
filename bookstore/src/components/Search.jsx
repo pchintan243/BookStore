@@ -1,7 +1,7 @@
 import * as React from 'react';
 import SearchIcon from '@mui/icons-material/Search';
-import FormControl, { useFormControl } from '@mui/material/FormControl';
-import { Button, OutlinedInput, Stack, colors } from '@mui/material';
+import FormControl from '@mui/material/FormControl';
+import { Button, OutlinedInput, Stack } from '@mui/material';
 
 const Search = () => {
     return (

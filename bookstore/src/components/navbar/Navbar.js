@@ -34,7 +34,7 @@ const Navbar = () => {
 
       <nav className="header">
         <div>
-          <img src={`${process.env.REACT_APP_LOGO}`} className="d-block w-50 h-100 ms-5" alt="logo" />
+          <img src='https://bookstore-sooty.vercel.app/static/media/site-logo.005b78aa01d0b4eadda3fa91c02202c5.svg' className="d-block w-50 h-100 ms-5" alt="logo" />
         </div>
         <ul className="main-nav">
           <li><Link to="/login" className='linkTag color-red'>Login</Link></li>

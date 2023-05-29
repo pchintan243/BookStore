@@ -49,16 +49,23 @@ const Signup = () => {
         Role: Yup.string().required("Please Select the Role")
     });
     const onFormSubmit = async (values) => {
+        const getData = {
+            "Firstname": values.Firstname,
+            "Lastname": values.Lastname,
+            "Email": values.Email,
+            "Password": values.Password,
+            "ConfirmPassword": values.ConfirmPassword,
+            "Role": values.Role
+        }
         console.log(values);
+        console.log(getData.Password)
         try {
-            const res = await axios.post("https://jsonplaceholder.typicode.com/posts", {
-                data: {
-                    ...values
-                }
-            });
-            const data = res.data;
-            console.log(data)
+            const res = await axios.post("https://jsonplaceholder.typicode.com/posts", getData);
+            // const data = res.data;
+            // console.log(data)
+            console.log("first");
             if (res.status === 201) {
+                console.log("second");
                 console.log(res.data.id);
                 toast.success('Data created Succesfully..!!', {
                     position: "top-right",
@@ -71,28 +78,11 @@ const Signup = () => {
                     theme: "dark",
                 });
             }
-
-            axios.delete("https://jsonplaceholder.typicode.com/posts/1").then((res) => {
-                if (res.status === 200) {
-                    console.log(res.data.id);
-                    toast.success('Data Deleted Succesfully..!!', {
-                        position: "top-right",
-                        autoClose: 3000,
-                        hideProgressBar: false,
-                        closeOnClick: true,
-                        pauseOnHover: true,
-                        draggable: true,
-                        progress: undefined,
-                        theme: "dark",
-                    });
-                }
-            })
         }
         catch (err) {
             console.log(err);
             toast("Error" + err);
         }
-
     }
     return (
         <>
@@ -113,7 +103,7 @@ const Signup = () => {
                 validationSchema={validationSchema}
                 onSubmit={onFormSubmit}
             >
-                {({ values, errors, touched, handleChange, handleBlur, handleSubmit, isSubmitting }) => (
+                {({ errors, touched, handleChange, handleBlur, handleSubmit }) => (
                     <div className="container">
                         <h2 style={{
                             marginLeft: "69px",

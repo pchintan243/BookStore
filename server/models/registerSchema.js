@@ -23,7 +23,7 @@ const registerSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    date: {
+    Date: {
         type: Date,
         default: Date.now()
     },

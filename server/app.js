@@ -10,8 +10,9 @@ const port = process.env.PORT;
 require("./db/conn");
 
 app.use(require('./router/auth'));
-
+app.use(express.json());
 const Register = require('./models/registerSchema')
+
 
 app.get('/', (req, res) => {
     res.send('fsf')

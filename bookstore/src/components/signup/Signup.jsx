@@ -60,9 +60,7 @@ const Signup = () => {
         console.log(values);
         console.log(getData.Password)
         try {
-            const res = await axios.post("https://jsonplaceholder.typicode.com/posts", getData);
-            // const data = res.data;
-            // console.log(data)
+            const res = await axios.post("https://localhost/7000/register", getData);
             console.log("first");
             if (res.status === 201) {
                 console.log("second");

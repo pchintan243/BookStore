@@ -8,10 +8,10 @@ dotenv.config({ path: './config.env' })
 const port = process.env.PORT;
 
 require("./db/conn");
-
-app.use(require('./router/auth'));
-app.use(express.json());
 const Register = require('./models/registerSchema')
+
+app.use(express.json());
+app.use(require('./router/auth'));
 
 
 app.get('/', (req, res) => {

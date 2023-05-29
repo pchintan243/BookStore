@@ -3,19 +3,17 @@ const router = express.Router();
 require("../db/conn");
 const Register = require("../models/registerSchema");
 router.use(express.json());
+
+
 router.post('/register', async (req, res) => {
     const { Firstname, Lastname, Email, Password, ConfirmPassword, Role } = req.body;
-    try {
-        // console.log("first")
-        const user = new Register({ Firstname, Lastname, Email, Password, ConfirmPassword, Role });
-        // console.log("firstt")
-        console.log(Firstname)
-        // console.log(Lastname)
-        // console.log(Email)
-        // console.log(Password)
-        // console.log(ConfirmPassword)
-        // console.log(Role)
 
+    console.log(Firstname)
+    try {
+        console.log("first")
+        const user = new Register({ Firstname, Lastname, Email, Password, ConfirmPassword, Role });
+        console.log("firstt")
+        console.log(Firstname)
         const registerSave = await user.save();
         console.log("firsttt")
         res.render("Home")

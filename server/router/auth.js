@@ -6,17 +6,16 @@ router.use(express.json());
 
 
 router.post('/register', async (req, res) => {
-    const { Firstname, Lastname, Email, Password, ConfirmPassword, Role } = req.body;
+    const { firstName, lastName, email, password, roleId } = req.body;
 
-    console.log(Firstname)
+    console.log(firstName)
     try {
-        console.log("first")
-        const user = new Register({ Firstname, Lastname, Email, Password, ConfirmPassword, Role });
-        console.log("firstt")
-        console.log(Firstname)
+        // console.log("first")
+        const user = new Register({ firstName, lastName, email, password, roleId });
+        // console.log("firstt")
+        // console.log(firstName)
         const registerSave = await user.save();
-        console.log("firsttt")
-        res.render("Home")
+        // console.log("firsttt")
         res.status(201).json({ message: "User Registered Successfully..!!" });
     }
     catch (error) {

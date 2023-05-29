@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import axios from 'axios';
 import { toast } from 'react-toastify';
 import { Formik } from 'formik';
-import { Button, FormControl, IconButton, InputAdornment, InputLabel, MenuItem, Select, TextField } from '@mui/material';
+import { Button, IconButton, InputAdornment, TextField } from '@mui/material';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 import * as Yup from "yup";
 import YupPassword from 'yup-password';
@@ -26,7 +26,7 @@ const Signup = () => {
     }, [])
 
     const validationSchema = Yup.object().shape({
-        Password: Yup.string()
+        password: Yup.string()
             .required('Please Enter the Password')
             .min(8, 'password must contain 8 or more characters with at least one of each: uppercase, lowercase, number and special')
             .minLowercase(1, 'password must contain at least 1 lower case letter')
@@ -34,36 +34,30 @@ const Signup = () => {
             .minNumbers(1, 'password must contain at least 1 number')
             .minSymbols(1, 'password must contain at least 1 special character'),
 
-        ConfirmPassword: Yup.string()
-            .required('Please Enter the Password Again')
-            .oneOf([Yup.ref('Password'), null], 'Passwords are not matching..!!'),
+        // ConfirmPassword: Yup.string()
+        //     .required('Please Enter the Password Again')
+        //     .oneOf([Yup.ref('password'), null], 'Passwords are not matching..!!'),
 
-        Firstname: Yup.string().min(5, "FirstName must be more than 4 Character")
-            .required("Please Enter Your Firstname")
+        firstName: Yup.string().min(5, "firstName must be more than 4 Character")
+            .required("Please Enter Your firstName")
             .matches(/^[aA-zZ\s]+$/, "Only alphabets are allowed for this field"),
 
-        Lastname: Yup.string().min(5, "LastName must be more than 4 Character")
-            .required("Please Enter Your Lastname")
+        lastName: Yup.string().min(5, "lastName must be more than 4 Character")
+            .required("Please Enter Your lastName")
             .matches(/^[aA-zZ\s]+$/, "Only alphabets are allowed for this field"),
 
-        Role: Yup.string().required("Please Select the Role")
     });
     const onFormSubmit = async (values) => {
         const getData = {
-            "Firstname": values.Firstname,
-            "Lastname": values.Lastname,
-            "Email": values.Email,
-            "Password": values.Password,
-            "ConfirmPassword": values.ConfirmPassword,
-            "Role": values.Role
+            "firstName": values.firstName,
+            "lastName": values.lastName,
+            "email": values.email,
+            "password": values.password,
+            "roleId": values.roleId
         }
-        console.log(values);
-        console.log(getData.Password)
         try {
-            const res = await axios.post("https://localhost/7000/register", getData);
-            console.log("first");
-            if (res.status === 201) {
-                console.log("second");
+            const res = await axios.post("https://book-e-sell-node-api.vercel.app/api/user", getData);
+            if (res.status === 200) {
                 console.log(res.data.id);
                 toast.success('Data created Succesfully..!!', {
                     position: "top-right",
@@ -86,15 +80,15 @@ const Signup = () => {
         <>
             <Main />
             <Formik
-                initialValues={{ Firstname: '', Lastname: '', Email: '', Password: '', ConfirmPassword: '', 'Role': '' }}
+                initialValues={{ firstName: '', lastName: '', email: '', password: '' }}
                 validate={values => {
                     const errors = {};
-                    if (!values.Email) {
-                        errors.Email = 'Please Write an Email Address';
+                    if (!values.email) {
+                        errors.email = 'Please Write an Email Address';
                     } else if (
-                        !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.Email)
+                        !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)
                     ) {
-                        errors.Email = 'Invalid email address';
+                        errors.email = 'Invalid email address';
                     }
                     return errors;
                 }}
@@ -127,18 +121,18 @@ const Signup = () => {
                         </h6>
                         <form onSubmit={handleSubmit} className='row d-flex align-items-center justify-content-center'>
 
-                            {/* Firstname Field */}
+                            {/* firstName Field */}
                             <div className='d-flex flex-column m-4 col-md-5 position-relative'>
                                 <TextField
                                     variant="outlined"
                                     type="text"
-                                    label="Firstname"
-                                    id="firstname"
-                                    name="Firstname"
+                                    label="firstName"
+                                    id="firstName"
+                                    name="firstName"
                                     onChange={handleChange}
                                     onBlur={handleBlur}
                                 />
-                                {touched.Firstname && (
+                                {touched.firstName && (
                                     <span className='p-1 fw-bold text-danger'
                                         style={{
                                             position: 'absolute',
@@ -146,23 +140,23 @@ const Signup = () => {
                                             fontSize: '15px'
                                         }}
                                     >
-                                        {errors.Firstname}
+                                        {errors.firstName}
                                     </span>
                                 )}
                             </div>
 
-                            {/* Lastname Field */}
+                            {/* lastName Field */}
                             <div className='d-flex flex-column m-4 col-md-5 position-relative'>
                                 <TextField
                                     variant="outlined"
                                     type="text"
-                                    label="Lastname"
-                                    id="lastname"
-                                    name="Lastname"
+                                    label="lastName"
+                                    id="lastName"
+                                    name="lastName"
                                     onChange={handleChange}
                                     onBlur={handleBlur}
                                 />
-                                {touched.Lastname && (
+                                {touched.lastName && (
                                     <span className='p-1 fw-bold text-danger'
                                         style={{
                                             position: 'absolute',
@@ -170,7 +164,7 @@ const Signup = () => {
                                             fontSize: '15px'
                                         }}
                                     >
-                                        {errors.Lastname}
+                                        {errors.lastName}
                                     </span>
                                 )}
                             </div>
@@ -182,11 +176,11 @@ const Signup = () => {
                                     type="email"
                                     label="Email"
                                     id="email"
-                                    name="Email"
+                                    name="email"
                                     onChange={handleChange}
                                     onBlur={handleBlur}
                                 />
-                                {errors.Email && touched.Email && (
+                                {errors.email && touched.email && (
                                     <span className='p-1 fw-bold text-danger'
                                         style={{
                                             position: 'absolute',
@@ -194,13 +188,26 @@ const Signup = () => {
                                             fontSize: '15px'
                                         }}
                                     >
-                                        {errors.Email}
+                                        {errors.email}
                                     </span>
                                 )}
                             </div>
 
-                            {/* Role field */}
+                            {/* Role Field */}
                             <div className='d-flex flex-column m-4 col-md-5 position-relative'>
+                                <TextField
+                                    variant="outlined"
+                                    type="text"
+                                    label="roleId"
+                                    id="roleId"
+                                    name="roleId"
+                                    onChange={handleChange}
+                                    onBlur={handleBlur}
+                                />
+                            </div>
+
+                            {/* Role field */}
+                            {/* <div className='d-flex flex-column m-4 col-md-5 position-relative'>
                                 <FormControl>
                                     <InputLabel id="demo-simple-select-label">Role</InputLabel>
                                     <Select
@@ -227,7 +234,9 @@ const Signup = () => {
                                         {errors.Role}
                                     </span>
                                 )}
-                            </div>
+                            </div> */}
+
+
 
                             <h2 style={{
                                 width: '90%',
@@ -252,7 +261,7 @@ const Signup = () => {
                                     variant="outlined"
                                     type={showPassword ? "text" : "password"}
                                     label='Password'
-                                    name='Password'
+                                    name='password'
                                     onChange={handleChange}
                                     onBlur={handleBlur}
                                     InputProps={{
@@ -269,7 +278,7 @@ const Signup = () => {
                                         )
                                     }}
                                 />
-                                {errors.Password && touched.Password && (
+                                {errors.password && touched.password && (
                                     <span className='p-1 fw-bold text-danger'
                                         style={{
                                             position: 'absolute',
@@ -277,13 +286,13 @@ const Signup = () => {
                                             fontSize: '15px'
                                         }}
                                     >
-                                        {errors.Password}
+                                        {errors.password}
                                     </span>
                                 )}
                             </div>
 
                             {/* ConfirmPassword field */}
-                            <div className='d-flex flex-column m-4 col-md-5 position-relative'>
+                            {/* <div className='d-flex flex-column m-4 col-md-5 position-relative'>
                                 <TextField
                                     variant="outlined"
                                     type={"password"}
@@ -303,7 +312,7 @@ const Signup = () => {
                                         {errors.ConfirmPassword}
                                     </span>
                                 )}
-                            </div>
+                            </div> */}
 
                             {/* Submit Button */}
                             <div>

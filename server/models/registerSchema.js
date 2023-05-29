@@ -15,8 +15,8 @@ const registerSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    Role: {
-        type: String,
+    roleId: {
+        type: Number,
         required: true
     },
     Password: {

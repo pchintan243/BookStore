@@ -19,10 +19,7 @@ const Signup = () => {
 
     const handleMouseDownPassword = () => setShowPassword(!showPassword);
     useEffect(() => {
-        axios.get("https://jsonplaceholder.typicode.com/posts").then((res) => {
-            // console.log("Details", res.data);
-            setUser(res.data)
-        })
+        
     }, [])
 
     const validationSchema = Yup.object().shape({
@@ -34,9 +31,9 @@ const Signup = () => {
             .minNumbers(1, 'password must contain at least 1 number')
             .minSymbols(1, 'password must contain at least 1 special character'),
 
-        // ConfirmPassword: Yup.string()
-        //     .required('Please Enter the Password Again')
-        //     .oneOf([Yup.ref('password'), null], 'Passwords are not matching..!!'),
+        ConfirmPassword: Yup.string()
+            .required('Please Enter the Password Again')
+            .oneOf([Yup.ref('password'), null], 'Passwords are not matching..!!'),
 
         firstName: Yup.string().min(5, "firstName must be more than 4 Character")
             .required("Please Enter Your firstName")
@@ -126,7 +123,7 @@ const Signup = () => {
                                 <TextField
                                     variant="outlined"
                                     type="text"
-                                    label="firstName"
+                                    label="FirstName"
                                     id="firstName"
                                     name="firstName"
                                     onChange={handleChange}
@@ -150,7 +147,7 @@ const Signup = () => {
                                 <TextField
                                     variant="outlined"
                                     type="text"
-                                    label="lastName"
+                                    label="LastName"
                                     id="lastName"
                                     name="lastName"
                                     onChange={handleChange}
@@ -198,45 +195,13 @@ const Signup = () => {
                                 <TextField
                                     variant="outlined"
                                     type="text"
-                                    label="roleId"
+                                    label="RoleId"
                                     id="roleId"
                                     name="roleId"
                                     onChange={handleChange}
                                     onBlur={handleBlur}
                                 />
                             </div>
-
-                            {/* Role field */}
-                            {/* <div className='d-flex flex-column m-4 col-md-5 position-relative'>
-                                <FormControl>
-                                    <InputLabel id="demo-simple-select-label">Role</InputLabel>
-                                    <Select
-                                        labelId="demo-simple-select-label"
-                                        id="demo-simple-select"
-                                        label="Role"
-                                        name="Role"
-                                        defaultValue=""
-                                        onChange={handleChange}
-                                        onBlur={handleBlur}
-                                    >
-                                        <MenuItem value='Buyer'>Buyer</MenuItem>
-                                        <MenuItem value='Seller'>Seller</MenuItem>
-                                    </Select>
-                                </FormControl>
-                                {touched.Role && (
-                                    <span className='p-1 fw-bold text-danger'
-                                        style={{
-                                            position: 'absolute',
-                                            top: '100%',
-                                            fontSize: '15px'
-                                        }}
-                                    >
-                                        {errors.Role}
-                                    </span>
-                                )}
-                            </div> */}
-
-
 
                             <h2 style={{
                                 width: '90%',
@@ -292,11 +257,11 @@ const Signup = () => {
                             </div>
 
                             {/* ConfirmPassword field */}
-                            {/* <div className='d-flex flex-column m-4 col-md-5 position-relative'>
+                            <div className='d-flex flex-column m-4 col-md-5 position-relative'>
                                 <TextField
                                     variant="outlined"
                                     type={"password"}
-                                    label='Confirm Password'
+                                    label='ConfirmPassword'
                                     name='ConfirmPassword'
                                     onChange={handleChange}
                                     onBlur={handleBlur}
@@ -312,7 +277,7 @@ const Signup = () => {
                                         {errors.ConfirmPassword}
                                     </span>
                                 )}
-                            </div> */}
+                            </div>
 
                             {/* Submit Button */}
                             <div>

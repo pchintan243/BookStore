@@ -13,6 +13,7 @@ import Login from './loginPage/Login';
 import Footer from './components/Footer';
 import Signup from './components/signup/Signup';
 import LoginState from './context/LoginState';
+import UpdateProfile from './components/UpdateProfile';
 
 function App() {
   return (
@@ -27,6 +28,7 @@ function App() {
               <Route exact path="/BookStore" element={<Navigate to="/" />}></Route>
               <Route exact path="/signup" element={<Signup />} />
               <Route exact path="/login" element={<Login />} />
+              <Route exact path="/update" element={<UpdateProfile />} />
               <Route exact path="/*" element={<h1>Page Not Found</h1>} />
             </Routes>
           </Router>

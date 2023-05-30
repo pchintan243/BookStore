@@ -7,11 +7,11 @@ import { Visibility, VisibilityOff } from '@mui/icons-material';
 import * as Yup from "yup";
 import YupPassword from 'yup-password';
 import Main from '../main/Main';
+import { useNavigate } from 'react-router-dom';
 YupPassword(Yup);
 
 const Signup = () => {
-    // eslint-disable-next-line
-    const [user, setUser] = useState([])
+    const navigate = useNavigate();
 
     const [showPassword, setShowPassword] = useState(false);
 
@@ -19,7 +19,7 @@ const Signup = () => {
 
     const handleMouseDownPassword = () => setShowPassword(!showPassword);
     useEffect(() => {
-        
+
     }, [])
 
     const validationSchema = Yup.object().shape({
@@ -36,13 +36,16 @@ const Signup = () => {
             .oneOf([Yup.ref('password'), null], 'Passwords are not matching..!!'),
 
         firstName: Yup.string().min(5, "firstName must be more than 4 Character")
+            .max(8, "Limit exist")
             .required("Please Enter Your firstName")
             .matches(/^[aA-zZ\s]+$/, "Only alphabets are allowed for this field"),
 
         lastName: Yup.string().min(5, "lastName must be more than 4 Character")
+            .max(8, "Limit exist")
             .required("Please Enter Your lastName")
             .matches(/^[aA-zZ\s]+$/, "Only alphabets are allowed for this field"),
 
+        roleId: Yup.string().required('Please Enter Role Id')
     });
     const onFormSubmit = async (values) => {
         const getData = {
@@ -67,10 +70,19 @@ const Signup = () => {
                     theme: "dark",
                 });
             }
+            navigate("/login")
         }
         catch (err) {
-            console.log(err);
-            toast("Error" + err);
+            toast.error('Email id already exist..!!', {
+                position: "top-right",
+                autoClose: 3000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "dark",
+            });
         }
     }
     return (
@@ -201,6 +213,17 @@ const Signup = () => {
                                     onChange={handleChange}
                                     onBlur={handleBlur}
                                 />
+                                {errors.roleId && touched.roleId && (
+                                    <span className='p-1 fw-bold text-danger'
+                                        style={{
+                                            position: 'absolute',
+                                            top: '100%',
+                                            fontSize: '15px'
+                                        }}
+                                    >
+                                        {errors.roleId}
+                                    </span>
+                                )}
                             </div>
 
                             <h2 style={{
@@ -282,7 +305,7 @@ const Signup = () => {
                             {/* Submit Button */}
                             <div>
                                 <Button variant="contained" type="submit" color='error' className='' style={{
-                                    margin: '8px 90px'
+                                    margin: '28px 90px'
                                 }}>
                                     Register
                                 </Button>

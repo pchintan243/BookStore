@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import axios from 'axios';
 import { toast } from 'react-toastify';
 import Main from '../components/main/Main'
@@ -6,8 +6,14 @@ import * as Yup from "yup";
 import { Formik } from 'formik';
 import { Button, IconButton, InputAdornment, TextField } from '@mui/material';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
+import { useNavigate } from 'react-router-dom';
+import loginContext from '../context/loginContext';
 
 const Login = () => {
+
+    const loginCheck = useContext(loginContext)
+
+    const navigate = useNavigate();
 
     const [showPassword, setShowPassword] = useState(false);
 
@@ -16,8 +22,8 @@ const Login = () => {
     const handleMouseDownPassword = () => setShowPassword(!showPassword);
 
     const validationSchema = Yup.object().shape({
-        Email: Yup.string().required('Please Enter an Email Address'),
-        Password: Yup.string().required('Please Enter the Password')
+        email: Yup.string().required('Please Enter an Email Address'),
+        password: Yup.string().required('Please Enter the Password')
     });
 
     const onFormSubmit = async (values) => {
@@ -25,29 +31,14 @@ const Login = () => {
 
         // API
         const getData = {
-            "Email": values.Email,
-            "Password": values.Password
+            "email": values.email,
+            "password": values.password
         }
-
-        const res = await axios.post("https://jsonplaceholder.typicode.com/posts", getData)
-        if (res.status === 201) {
-            console.log(res.data.id);
-            toast.success('Data created Succesfully..!!', {
-                position: "top-right",
-                autoClose: 3000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-                theme: "dark",
-            });
-        }
-
-        axios.delete("https://jsonplaceholder.typicode.com/posts/1").then((res) => {
+        try {
+            const res = await axios.post("https://book-e-sell-node-api.vercel.app/api/user/login", getData)
             if (res.status === 200) {
                 console.log(res.data.id);
-                toast.success('Data Deleted Succesfully..!!', {
+                toast.success('Login Succesfully..!!', {
                     position: "top-right",
                     autoClose: 3000,
                     hideProgressBar: false,
@@ -58,8 +49,24 @@ const Login = () => {
                     theme: "dark",
                 });
             }
-        })
+            loginCheck.setLogin(true)
+            navigate("/")
+        }
+        catch (err) {
+            console.log(err);
+            toast.error('Credentials not matched..!!', {
+                position: "top-right",
+                autoClose: 3000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "dark",
+            });
+        }
     }
+
 
     return (
         <>
@@ -92,7 +99,7 @@ const Login = () => {
                         </p>
                         <ul style={{
                             listStyleType: 'disc',
-                            fontSize:'1.1rem'
+                            fontSize: '1.1rem'
                         }}>
                             <li>Faster checkout</li>
                             <li>Save multiple shipping addresses</li>
@@ -114,7 +121,7 @@ const Login = () => {
 
                 <div style={{ width: "50%" }}>
                     <Formik
-                        initialValues={{ Email: '', Password: '' }}
+                        initialValues={{ email: '', password: '' }}
                         validationSchema={validationSchema}
                         onSubmit={onFormSubmit}
                     >
@@ -151,11 +158,11 @@ const Login = () => {
                                             type="email"
                                             label="Email"
                                             id="email"
-                                            name="Email"
+                                            name="email"
                                             onChange={handleChange}
                                             onBlur={handleBlur}
                                         />
-                                        {errors.Email && touched.Email && (
+                                        {errors.email && touched.email && (
                                             <span className='p-1 fw-bold text-danger'
                                                 style={{
                                                     position: 'absolute',
@@ -163,7 +170,7 @@ const Login = () => {
                                                     fontSize: '15px'
                                                 }}
                                             >
-                                                {errors.Email}
+                                                {errors.email}
                                             </span>
                                         )}
                                     </div>
@@ -174,7 +181,7 @@ const Login = () => {
                                             variant="outlined"
                                             type={showPassword ? "text" : "password"}
                                             label='Password'
-                                            name='Password'
+                                            name='password'
                                             onChange={handleChange}
                                             onBlur={handleBlur}
                                             InputProps={{
@@ -191,7 +198,7 @@ const Login = () => {
                                                 )
                                             }}
                                         />
-                                        {errors.Password && touched.Password && (
+                                        {errors.password && touched.password && (
                                             <span className='p-1 fw-bold text-danger'
                                                 style={{
                                                     position: 'absolute',
@@ -199,7 +206,7 @@ const Login = () => {
                                                     fontSize: '15px'
                                                 }}
                                             >
-                                                {errors.Password}
+                                                {errors.password}
                                             </span>
                                         )}
                                     </div>

@@ -1,88 +1,50 @@
-import React, { useState } from 'react'
+import React, { useContext } from 'react'
 import "./navbar.css"
-import {
-  Link
-} from 'react-router-dom'
-// import { Avatar } from '@mui/material'
-// import { Popover } from '@mui/material';
-// import LogoutIcon from '@mui/icons-material/Logout';
+import { Link } from 'react-router-dom'
 import { ShoppingCart } from '@mui/icons-material';
+import loginContext from '../../context/loginContext';
 
 const Navbar = () => {
-  // eslint-disable-next-line
-  const [open, setOpen] = useState(false)
-  // eslint-disable-next-line
-  const [anchorEl, setAnchorEl] = useState(null);
+  const isLogin = useContext(loginContext)
+  const valueChange = () => {
+    isLogin.setLogin(false)
+  }
 
-  // const handleClick = (event) => {
-  //   console.log(212);
-  //   setAnchorEl(event.currentTarget);
-  //   setOpen(true);
-  // };
-
-  // const handleClose = () => {
-  //   setAnchorEl(null);
-  //   setOpen(false);
-  // };
-
-  // const onHomePage = () => {
-  //   Navigate("/")
-  // }
-
+  const NavChange = () => {
+    // If user is logged in then it shows Logout button, otherwise it shows register or login button
+    if (isLogin.login) {
+      return (
+        <li><Link to="/login" className='linkTag color-red' onClick={valueChange}>Logout</Link></li>
+      )
+    }
+    else {
+      return (
+        <>
+          <li><Link to="/login" className='linkTag color-red'>Login</Link></li>
+          <li><Link className='line'>|</Link></li>
+          <li><Link to="/signup" className='linkTag color-red'>SignUp</Link></li>
+        </>
+      )
+    }
+  }
   return (
     <>
-
       <nav className="header">
         <div>
           <img src='https://bookstore-sooty.vercel.app/static/media/site-logo.005b78aa01d0b4eadda3fa91c02202c5.svg' className="d-block w-50 h-100 ms-5" alt="logo" />
         </div>
         <ul className="main-nav">
-          <li><Link to="/login" className='linkTag color-red'>Login</Link></li>
-          <li><Link className='line'>|</Link></li>
-          <li><Link to="/signup" className='linkTag color-red'>SignUp</Link></li>
+
+          <NavChange />
+
           <li className='cart-li'>
             <Link to="/cart" className='color-red'>
-              <ShoppingCart />
+              <ShoppingCart className='color-red' />
               <span>0</span>
               <span className='cartTag'>Cart</span>
             </Link>
           </li>
         </ul>
-        {/* <div onClick={handleClick}>
-          <Avatar sx={{ bgcolor: "blue", cursor: "pointer" }}>CP</Avatar>
-        </div>
-        <Popover
-          open={open}
-          anchorOrigin={{
-            vertical: 'bottom',
-            horizontal: 'left',
-          }}
-          transformOrigin={{
-            vertical: 'top',
-            horizontal: 'left',
-          }}
-          anchorEl={anchorEl}
-          onClose={handleClose}
-        >
-          <div
-            style={{
-              padding: 10,
-              display: 'flex',
-              flexDirection: "column",
-              justifyContent: 'center',
-              alignItems: 'center',
-            }}
-          >
-            <h6
-              style={{
-                fontWeight: 'bolder'
-              }}
-            >
-              Chintan Patel
-            </h6>
-            <LogoutIcon style={{ cursor: "pointer" }} onClick={onHomePage} />
-          </div>
-        </Popover> */}
       </nav>
     </>
   )

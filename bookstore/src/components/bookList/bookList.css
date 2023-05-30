@@ -1,0 +1,33 @@
+/* .main {
+
+} */
+
+.main-card {
+    -webkit-box-shadow: 0 0 15px -10px rgba(0, 0, 0, 0.75);
+    box-shadow: 0 0 15px -10px rgba(0, 0, 0, 0.75);
+    border: 1px solid black;
+    border-radius: 10px;
+}
+
+.book-img {
+    height: 256px;
+    width: 100%;
+    object-fit: cover;
+}
+
+.h2-tag {
+    font-weight: bolder;
+    margin: 0;
+}
+
+.h5-tag {
+    color: grey;
+}
+
+.desc {
+    height: 80px;
+}
+
+.price-h5 {
+    color: rgb(100, 99, 99);
+}

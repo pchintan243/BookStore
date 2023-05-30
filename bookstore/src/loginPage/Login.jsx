@@ -50,7 +50,7 @@ const Login = () => {
                 });
             }
             loginCheck.setLogin(true)
-            navigate("/")
+            navigate("/booklist")
         }
         catch (err) {
             console.log(err);

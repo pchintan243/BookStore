@@ -33,8 +33,6 @@ const UpdateProfile = () => {
             .max(8, "Limit exist")
             .required("Please Enter Your lastName")
             .matches(/^[aA-zZ\s]+$/, "Only alphabets are allowed for this field"),
-
-        roleId: Yup.string().required('Please Enter Role Id')
     });
     const onFormSubmit = async (values) => {
         const getData = {
@@ -77,7 +75,7 @@ const UpdateProfile = () => {
     return (
         <>
             <Formik
-                initialValues={{ firstName: '', lastName: '', email: '', password: '' }}
+                initialValues={{ firstName: '', lastName: '', email: '', newPassword: '', confirmPassword: '' }}
                 validate={values => {
                     const errors = {};
                     if (!values.email) {

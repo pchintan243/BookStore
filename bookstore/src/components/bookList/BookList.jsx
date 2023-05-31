@@ -9,24 +9,24 @@ const BookList = (props) => {
     const [loading, setLoading] = useState(true)
     const [page, setPage] = useState(1)
     const [totalResults, setTotalResults] = useState(0)
-
+    const [count, setCount] = useState(0)
 
     const getListBook = async () => {
 
         // props.setProgress(10);
         const url = "https://book-e-sell-node-api.vercel.app/api/book/all/"
-        // setPage(page + 2)
+        setPage(page + 2)
         let data = await fetch(url);
         setLoading(true);
 
         // props.setProgress(40);
+        setLoading(false)
         let parsedData = await data.json();
 
         // props.setProgress(70);
         setBook(parsedData.result)
         setTotalResults(parsedData.totalResults)
 
-        setLoading(false)
         // props.setProgress(100);
     }
 
@@ -71,6 +71,8 @@ const BookList = (props) => {
                 <div className='container-main-1'>
                     <div className='row main'>
                         {book.map((element) => {
+                            {/* var count = 0; */}
+                            console.log(count)
                             return <div className="main-card" key={element.id}>
 
                                 <div className='img-div'>

@@ -34,23 +34,23 @@ const BookList = () => {
                 }}></div>
             </div>
 
-            <div className='container'>
+            <div className='container-main-1'>
                 <div className='row main'>
                     {book.map((element) => (
-                        <div className="col-md-3 main-card my-4" key={element.id}>
+                        <div className="main-card" key={element.id}>
 
                             <div className='img-div'>
                                 <img src={element.base64image} className='book-img' alt="book-img" />
                             </div>
-                            <div>
-                                <h2 className='h2-tag'>
-                                    {element.name.slice(0, 20)}
-                                </h2>
+                            <div className='text-content'>
+                                <h3 className='h2-tag'>
+                                    {element.name}
+                                </h3>
                                 <h5 className='h5-tag'>
                                     {element.category}
                                 </h5>
                                 <div className='desc'>
-                                    {element.description.slice(0, 80)}
+                                    {element.description}
                                 </div>
                                 <p className="price-p">
                                     <h5 className="price-h5">

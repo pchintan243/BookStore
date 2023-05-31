@@ -17,6 +17,7 @@ import UpdateProfile from './components/UpdateProfile';
 import BookList from './components/bookList/BookList';
 
 function App() {
+  const pageSize = 8;
   return (
     <>
       <LoginState>
@@ -30,7 +31,7 @@ function App() {
               <Route exact path="/signup" element={<Signup />} />
               <Route exact path="/login" element={<Login />} />
               <Route exact path="/update" element={<UpdateProfile />} />
-              <Route exact path="/booklist" element={<BookList />} />
+              <Route exact path="/booklist" element={<BookList pageSize={pageSize}/>} />
               <Route exact path="/*" element={<h1>Page Not Found</h1>} />
             </Routes>
           </Router>

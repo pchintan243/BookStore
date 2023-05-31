@@ -1,7 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import "./bookList.css"
 
-const BookList = () => {
+const BookList = (props) => {
+
+    const [page, setPage] = useState(1)
+    const [totalResults, setTotalResults] = useState(8)
 
     const [book, setBook] = useState([])
 
@@ -18,6 +21,18 @@ const BookList = () => {
     useEffect(() => {
         getListBook();
     }, [])
+
+    const handlePrevClick = async () => {
+        // Page will be decrement by 1 if you click on previous button
+        setPage(page - 1)
+        getListBook();
+    }
+
+    const handleNextClick = async () => {
+        // Page will be increment by 1 if you click on next button
+        setPage(page + 1)
+        getListBook();
+    }
 
     return (
         <>
@@ -36,8 +51,8 @@ const BookList = () => {
 
             <div className='container-main-1'>
                 <div className='row main'>
-                    {book.map((element) => (
-                        <div className="main-card" key={element.id}>
+                    {book.map((element) => {
+                        return <div className="main-card" key={element.id}>
 
                             <div className='img-div'>
                                 <img src={element.base64image} className='book-img' alt="book-img" />
@@ -68,8 +83,12 @@ const BookList = () => {
                                 </button>
                             </div>
                         </div>
-                    ))}
+                    })}
                 </div>
+            </div>
+            <div className="container d-flex justify-content-between">
+                <button disabled={page <= 1} type="button" className="btn btn-sm btn-danger" onClick={handlePrevClick}> &larr; Previous</button>
+                <button disabled={page + 1 > Math.ceil(totalResults / props.pageSize)} type="button" className="btn btn-sm btn-danger" onClick={handleNextClick}>Next &rarr;</button>
             </div>
         </>
     )

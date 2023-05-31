@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import './App.css';
 import Navbar from './components/navbar/Navbar';
 import Home from './components/home/Home';
@@ -18,6 +18,8 @@ import BookList from './components/bookList/BookList';
 
 function App() {
   const pageSize = 8;
+
+  // const [progress, setProgress] = useState(0)
   return (
     <>
       <LoginState>

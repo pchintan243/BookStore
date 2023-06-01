@@ -72,7 +72,7 @@ const BookList = (props) => {
                     <div className='row main'>
                         {book.map((element) => {
                             {/* var count = 0; */}
-                            console.log(count)
+                            {/* console.log(count) */}
                             return <div className="main-card" key={element.id}>
 
                                 <div className='img-div'>

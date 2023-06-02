@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react'
+import { toast } from 'react-toastify';
 import { DataGrid } from '@mui/x-data-grid';
+import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom'
 import "./bookPage.css"
 import { DeleteOutlineOutlined } from '@mui/icons-material';
@@ -17,17 +19,38 @@ const BookPage = () => {
         setBook(parsedData.result)
     }
 
-    const deleteItem = async (id) => {
-        // let updateList = book.filter(item => item.id !== id)
-        // setBook(updateList);
-        // localStorage.getItem('bookList')
-        setBook(book.filter(item => item.id !== id));
+    const deleteItem = async (bookid) => {
+        try {
+            await axios.delete(`https://book-e-sell-node-api.vercel.app/api/book?id=${bookid}`);
+            getListBook();
+            toast.success('Book Deleted Succesfully..!!', {
+                position: "top-right",
+                autoClose: 3000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "dark",
+            });
+        }
+        catch (err) {
+            toast.error('error', {
+                position: "top-right",
+                autoClose: 3000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "dark",
+            });
+        }
     }
 
     useEffect(() => {
         getListBook();
-        localStorage.setItem('bookList', getListBook())
-    }, [book]);
+    }, []);
 
     const columns = [
         { field: 'id', headerName: 'ID', width: 90 },

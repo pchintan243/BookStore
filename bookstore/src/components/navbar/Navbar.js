@@ -27,6 +27,7 @@ const Navbar = () => {
     if (isLogin.login) {
       return (
         <>
+          <li><Link className='line mt-1 text-secondary'>|</Link></li>
 
           <li>
             <Link to="/update" className='linkTag color-red' style={{
@@ -37,17 +38,18 @@ const Navbar = () => {
               Update Profile
             </Link>
           </li>
-          <Button variant="outlined" onClick={valueChange} style={{
-            border: " 1px solid black",
-            color: "red",
-            width: "79px",
-            fontSize: "13px",
-            background: "#ff00000f",
-            fontWeight: "600",
-          }}
-          >
-            Logout
-          </Button>
+
+          <li><Link className='line mt-1 text-secondary'>|</Link></li>
+
+          <li className='linkTag color-red' onClick={valueChange}>
+            <Link to="/update" className='linkTag color-red' style={{
+              fontWeight: "600",
+              margin: 4,
+            }}
+            >
+              Logout
+            </Link>
+          </li>
         </>
       )
     }
@@ -80,7 +82,7 @@ const Navbar = () => {
           <NavChange />
 
           <li className='cart-li'>
-            <Link to="/cart" className='color-red' style={{ background: "#ff00000f" }} >
+            <Link to="/cart" className='color-red'>
               <ShoppingCart className='color-red' />
               <span>0</span>
               <span className='cartTag'>Cart</span>

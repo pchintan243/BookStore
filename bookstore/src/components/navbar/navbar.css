@@ -51,6 +51,13 @@
     margin-left: 20px;
 }
 
+.cart-li a {
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: auto;height: 50px;
+}
 .cartTag {
     margin: 4px;
     color: black;

@@ -4,21 +4,8 @@ import { Link } from 'react-router-dom'
 import "./bookPage.css"
 import { DeleteOutlineOutlined } from '@mui/icons-material';
 
-const getLocalItems = () => {
-    let bookList = localStorage.getItem('books')
-    console.log(bookList);
-    if (bookList) {
-        return JSON.parse(localStorage.getItem('books'));
-    }
-    else {
-        return [];
-    }
-}
-
 const BookPage = () => {
     const [book, setBook] = useState([])
-
-    const [items, setItems] = useState(getLocalItems());
 
     const getListBook = async () => {
         const url = "https://book-e-sell-node-api.vercel.app/api/book/all/"
@@ -27,25 +14,17 @@ const BookPage = () => {
         setBook(parsedData.result)
     }
 
+    const deleteItem = async (id) => {
+        // let updateList = book.filter(item => item.id !== id)
+        // setBook(updateList);
+        // localStorage.getItem('bookList')
+        setBook(book.filter(item => item.id !== id));
+    }
+
     useEffect(() => {
         getListBook();
-        localStorage.setItem('books', JSON.stringify(items))
-    }, [items])
-
-    const handleDelete = async (id) => {
-
-        // const url = "https://book-e-sell-node-api.vercel.app/api/book/id"
-        // let res = await fetch(url);
-        // let parsedData = await res.json();
-        // setBook(parsedData.result)
-
-        setBook(book.filter(item => item.id !== id));
-
-        // const deleteBook = item.filter((elem) => {
-        //     return id !== elem.id;
-        // });
-        // setBook(deleteBook)
-    }
+        localStorage.setItem('bookList', getListBook())
+    }, [book]);
 
     const columns = [
         { field: 'id', headerName: 'ID', width: 90 },
@@ -84,10 +63,10 @@ const BookPage = () => {
             renderCell: (params) => {
                 return (
                     <>
-                        <Link to={"/user/" + params.row.id}>
+                        <Link to={"/edit-book/:id/" + params.row.id}>
                             <button className="userListEdit">Edit</button>
                         </Link>
-                        <DeleteOutlineOutlined className="userListDelete" onClick={() => handleDelete(params.row.id)} />
+                        <DeleteOutlineOutlined className="userListDelete" onClick={() => deleteItem(params.row.id)} />
                     </>
                 )
             }
@@ -97,7 +76,11 @@ const BookPage = () => {
     return (
         <>
             <div className='userList'>
-                <DataGrid rows={book} disableSelectionOnClick columns={columns} pageSize={8} checkboxSelection />
+                <DataGrid rows={book} pageSizeOptions={[2, 5, 8, 10, 25]} disableSelectionOnClick columns={columns} initialState={{
+                    pagination: {
+                        paginationModel: { pageSize: 5, page: 0 },
+                    },
+                }} checkboxSelection />
             </div>
         </>
     )

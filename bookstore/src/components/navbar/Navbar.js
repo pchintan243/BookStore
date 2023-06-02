@@ -27,6 +27,7 @@ const Navbar = () => {
     if (isLogin.login) {
       return (
         <>
+
           <li>
             <Link to="/update" className='linkTag color-red' style={{
               margin: 4,
@@ -67,7 +68,15 @@ const Navbar = () => {
           <img src='https://bookstore-sooty.vercel.app/static/media/site-logo.005b78aa01d0b4eadda3fa91c02202c5.svg' className="d-block w-50 h-100 ms-5" alt="logo" />
         </div>
         <ul className="main-nav">
-
+          <li>
+            <Link to="/bookpage" className='linkTag color-red' style={{
+              margin: 4,
+              fontWeight: "600",
+            }}
+            >
+              Book
+            </Link>
+          </li>
           <NavChange />
 
           <li className='cart-li'>
@@ -77,6 +86,7 @@ const Navbar = () => {
               <span className='cartTag'>Cart</span>
             </Link>
           </li>
+
         </ul>
       </nav>
     </>

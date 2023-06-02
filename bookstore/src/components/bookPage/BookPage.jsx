@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from 'react'
 import { DataGrid } from '@mui/x-data-grid';
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import "./bookPage.css"
 import { DeleteOutlineOutlined } from '@mui/icons-material';
+import { Button, Stack } from '@mui/material';
 
 const BookPage = () => {
+
+    const navigate = useNavigate();
     const [book, setBook] = useState([])
 
     const getListBook = async () => {
@@ -75,6 +78,20 @@ const BookPage = () => {
 
     return (
         <>
+            <div className='m-auto my-3 d-flex align-items-center flex-row-reverse'>
+
+                <Stack direction="row" spacing={2} style={{
+                    borderRadius: 4,
+                    margin: '3px 10px',
+                    height: 40
+                }}>
+                    <Button variant="outlined" onClick={() => navigate("/add-book")} style={{ color: 'white', backgroundColor: 'rgb(255 0 11)', margin: '0px 82px 0 0' }}>
+                        ADD
+                    </Button>
+                </Stack>
+                <h4 className='m-auto mx-0'>ADD BOOK</h4>
+            </div>
+
             <div className='userList'>
                 <DataGrid rows={book} pageSizeOptions={[2, 5, 8, 10, 25]} disableSelectionOnClick columns={columns} initialState={{
                     pagination: {

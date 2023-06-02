@@ -26,12 +26,6 @@ const Main = () => {
 
             <h1 className='d-flex align-items-center justify-content-center fw-bolder mt-4'>Login or Create an Account</h1>
 
-            {/* <hr style={{
-                margin: "10px auto 50px",
-                color: "red",
-                width: "20%",
-                borderWidth: 2,
-            }} /> */}
             <div style={{
                 height: '2px',
                 width: '17%',

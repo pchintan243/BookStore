@@ -9,7 +9,6 @@ const BookList = (props) => {
     const [loading, setLoading] = useState(true)
     const [page, setPage] = useState(1)
     const [totalResults, setTotalResults] = useState(0)
-    const [count, setCount] = useState(0)
 
     const getListBook = async () => {
 

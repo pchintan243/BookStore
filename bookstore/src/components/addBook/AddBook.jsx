@@ -1,15 +1,19 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
+import { toast } from 'react-toastify';
+import axios from 'axios';
 import { Formik } from 'formik';
-import { Button, FormControl, Hidden, InputLabel, MenuItem, Select, TextField } from '@mui/material';
+import { Button, FormControl, InputLabel, MenuItem, Select, TextField } from '@mui/material';
 import * as Yup from "yup";
-import { Visibility } from '@mui/icons-material';
 
 const AddBook = () => {
+
+    const [categories, setCategories] = useState([]);
+
 
     const initialValues = {
         name: "",
         price: "",
-        categoryId: 0,
+        categoryId: 5,
         description: "",
         base64image: "",
     };
@@ -53,9 +57,60 @@ const AddBook = () => {
         }
     }
 
-    const onSubmit = () => {
-
+    const onSubmit = async () => {
+        try {
+            await axios.post('https://book-e-sell-node-api.vercel.app/api/book');
+            toast.success('Book Added Succesfully..!!', {
+                position: "top-right",
+                autoClose: 3000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "dark",
+            });
+        }
+        catch (err) {
+            toast.error('error', {
+                position: "top-right",
+                autoClose: 3000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "dark",
+            });
+        }
     }
+    console.log("l", categories)
+
+    const getCategory = async () => {
+        try {
+            const url = await axios.get('https://book-e-sell-node-api.vercel.app/api/category/all');
+            let res = await fetch(url);
+            let parsedData = await res.json();
+            setCategories(parsedData.result)
+            // console.log(categories);
+        }
+        catch (err) {
+            toast.error('error', {
+                position: "top-right",
+                autoClose: 3000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "dark",
+            });
+        }
+    }
+
+    useEffect(() => {
+        getCategory();
+    }, []);
     return (
         <>
             <Formik
@@ -86,7 +141,7 @@ const AddBook = () => {
 
                         <form onSubmit={handleSubmit} className='row d-flex align-items-center justify-content-center'>
 
-                            {/* firstName Field */}
+                            {/* Bookname Field */}
                             <div className='d-flex flex-column m-4 col-md-5 position-relative'>
                                 <TextField
                                     variant="outlined"
@@ -111,7 +166,7 @@ const AddBook = () => {
                                 )}
                             </div>
 
-                            {/* lastName Field */}
+                            {/* Price Field */}
                             <div className='d-flex flex-column m-4 col-md-5 position-relative'>
                                 <TextField
                                     variant="outlined"
@@ -136,7 +191,7 @@ const AddBook = () => {
                                 )}
                             </div>
 
-                            {/* Email field */}
+                            {/* Category field */}
                             <div className='d-flex flex-column m-4 col-md-5 position-relative'>
                                 <FormControl>
                                     <InputLabel id="demo-simple-select-label">Category</InputLabel>
@@ -148,16 +203,11 @@ const AddBook = () => {
                                         onChange={handleChange}
                                         value={values.categoryId}
                                     >
-                                        <MenuItem value="Self improvements">Self improvements</MenuItem>
-                                        <MenuItem value="Tourist place">Tourist place</MenuItem>
-                                        <MenuItem value="Horror">Horror</MenuItem>
-                                        <MenuItem value="IT">IT</MenuItem>
-                                        <MenuItem value="Horror1234">Horror1234</MenuItem>
-                                        <MenuItem value="Science & technology">Science & technology</MenuItem>
-                                        <MenuItem value="Business">Business</MenuItem>
-                                        <MenuItem value="Test category">Test category</MenuItem>
-                                        <MenuItem value="New updated category">New updated catoegory</MenuItem>
-                                        <MenuItem value="Love story">Love story</MenuItem>
+                                        {categories.map((value) => (
+                                            <MenuItem value={value.id}>
+                                                {value.name}
+                                            </MenuItem>
+                                        ))}
                                     </Select>
                                 </FormControl>
                                 {errors.categoryId && touched.categoryId && (
@@ -173,35 +223,33 @@ const AddBook = () => {
                                 )}
                             </div>
 
-                            {/* Role Field */}
-                            <div div className='d-flex flex-column m-4 col-md-5 position-relative' >
-                                <Button style={{
-                                    backgroundColor: 'green',
-                                }}>
-                                    <input type="file" id="file" onchange={fileValidation} style={{
-                                        backgroundColor: 'red',
-                                        color:'yellow',
-                                    }} />
-                                    {/* Image preview */}
-                                    <div id="imagePreview"></div>
-                                </Button>
-                                {
-                                    errors.roleId && touched.roleId && (
-                                        <span className='p-1 fw-bold text-danger'
-                                            style={{
-                                                position: 'absolute',
-                                                top: '100%',
-                                                fontSize: '15px'
-                                            }}
-                                        >
-                                            {errors.roleId}
-                                        </span>
-                                    )
+                            {/* Description field */}
+                            <div className='d-flex flex-column m-4 col-md-11 position-relative' style={{
+                                width: "62.3rem"
+                            }}>
+                                <TextField
+                                    id="description"
+                                    name="description"
+                                    label="Description *"
+                                    variant="outlined"
+                                    value={values.description}
+                                    multiline
+                                    onBlur={handleBlur}
+                                    onChange={handleChange}
+                                />
+                                {errors.description && touched.description && (
+                                    <span className='p-1 fw-bold text-danger'
+                                        style={{
+                                            position: 'absolute',
+                                            top: '100%',
+                                            fontSize: '15px'
+                                        }}
+                                    >
+                                        {errors.description}
+                                    </span>
+                                )
                                 }
                             </div>
-
-
-
 
                             {/* Submit Button */}
                             <div>

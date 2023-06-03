@@ -8,7 +8,7 @@ const BookList = (props) => {
     const [book, setBook] = useState([])
     const [loading, setLoading] = useState(true)
     const [page, setPage] = useState(1)
-    const [totalResults, setTotalResults] = useState(0)
+    const [totalResults, setTotalResults] = useState('')
 
     const getListBook = async () => {
 
@@ -24,8 +24,9 @@ const BookList = (props) => {
 
         // props.setProgress(70);
         setBook(parsedData.result)
-        setTotalResults(parsedData.totalResults)
-
+        setTotalResults(parsedData)
+        console.log("t1", totalResults);
+        console.log("t2", totalResults.totalItems);
         // props.setProgress(100);
     }
 
@@ -47,19 +48,6 @@ const BookList = (props) => {
 
     return (
         <>
-            <div className="container">
-                <h1 style={{
-                    margin: '35px 0px 17px',
-                    textAlign: 'center'
-                }}>Book Listing</h1>
-                <div style={{
-                    height: '2px',
-                    width: '10%',
-                    margin: "10px auto 50px",
-                    backgroundColor: 'red',
-                }}></div>
-            </div>
-
             {loading && <Spinner />}
             <InfiniteScroll
                 dataLength={book.length}
@@ -67,11 +55,28 @@ const BookList = (props) => {
                 hasMore={book.length !== totalResults}
                 loader={<Spinner />}
             >
+
+                <div className="container">
+                    <h1 style={{
+                        margin: '35px 0px 17px',
+                        textAlign: 'center'
+                    }}>Book Listing</h1>
+                    <div style={{
+                        height: '2px',
+                        width: '10%',
+                        margin: "10px auto 50px",
+                        backgroundColor: 'red',
+                    }}></div>
+                </div>
+
+                <div>
+                    <h1>Total - {totalResults.totalItems} items</h1>
+                </div>
                 <div className='container-main-1'>
                     <div className='row main'>
                         {book.map((element) => {
-                            {/* var count = 0; */}
-                            {/* console.log(count) */}
+                            {/* var count = 0; */ }
+                            {/* console.log(count) */ }
                             return <div className="main-card" key={element.id}>
 
                                 <div className='img-div'>

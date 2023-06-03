@@ -59,6 +59,7 @@ const Signup = () => {
             const res = await axios.post("https://book-e-sell-node-api.vercel.app/api/user", getData);
             if (res.status === 200) {
                 console.log(res.data.id);
+                console.log(getData);
                 toast.success('Data created Succesfully..!!', {
                     position: "top-right",
                     autoClose: 3000,
@@ -89,7 +90,7 @@ const Signup = () => {
         <>
             <Main />
             <Formik
-                initialValues={{ firstName: '', lastName: '', email: '', password: '' }}
+                initialValues={{ firstName: '', lastName: '', email: '', password: '', roleId: 0}}
                 validate={values => {
                     const errors = {};
                     if (!values.email) {

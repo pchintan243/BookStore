@@ -50,6 +50,10 @@ const Login = () => {
                 });
             }
             loginCheck.setLogin(true)
+            // await localStorage.setItem("isLoggedIn", loginCheck.login)
+            // await localStorage.setItem("user", JSON.stringify(getData))
+            // localStorage.getItem("user")
+            // localStorage.getItem("isLoggedIn")
             navigate("/booklist")
         }
         catch (err) {

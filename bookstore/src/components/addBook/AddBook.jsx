@@ -13,7 +13,7 @@ const AddBook = () => {
     const initialValues = {
         name: "",
         price: "",
-        categoryId: 5,
+        categoryId: "",
         description: "",
         base64image: "",
     };
@@ -95,7 +95,7 @@ const AddBook = () => {
             // console.log(categories);
         }
         catch (err) {
-            toast.error('error', {
+            toast.error('category', {
                 position: "top-right",
                 autoClose: 3000,
                 hideProgressBar: false,
@@ -203,11 +203,11 @@ const AddBook = () => {
                                         onChange={handleChange}
                                         value={values.categoryId}
                                     >
-                                        {categories.map((value) => (
-                                            <MenuItem value={value.id}>
-                                                {value.name}
+                                        {categories.map((elem) => {
+                                            return <MenuItem value={elem.id}>
+                                                {elem.name}
                                             </MenuItem>
-                                        ))}
+                                        })}
                                     </Select>
                                 </FormControl>
                                 {errors.categoryId && touched.categoryId && (
@@ -221,6 +221,26 @@ const AddBook = () => {
                                         {errors.categoryId}
                                     </span>
                                 )}
+                            </div>
+
+                            <div div className='d-flex flex-column m-4 col-md-5 position-relative' >
+                                <Button>
+                                    <input type="file" id="file" onChange={fileValidation} />
+                                </Button>
+                                {/* Image preview */}
+                                <div id="imagePreview"></div>
+                                {errors.base64image && touched.base64image && (
+                                    <span className='p-1 fw-bold text-danger'
+                                        style={{
+                                            position: 'absolute',
+                                            top: '100%',
+                                            fontSize: '15px'
+                                        }}
+                                    >
+                                        {errors.base64image}
+                                    </span>
+                                )
+                                }
                             </div>
 
                             {/* Description field */}

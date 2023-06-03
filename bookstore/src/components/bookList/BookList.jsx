@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import "./bookList.css"
 import Spinner from '../Spinner'
 import InfiniteScroll from "react-infinite-scroll-component";
+import { FormControl, InputLabel, MenuItem, Select } from '@mui/material';
 
 const BookList = (props) => {
 
@@ -9,6 +10,14 @@ const BookList = (props) => {
     const [loading, setLoading] = useState(true)
     const [page, setPage] = useState(1)
     const [totalResults, setTotalResults] = useState('')
+    const [sortBy, setSortBy] = useState();
+    const [bookResponse, setBookResponse] = useState({
+        pageIndex: 0,
+        pageSize: 10,
+        totalPages: 1,
+        items: [],
+        totalItems: 0,
+    });
 
     const getListBook = async () => {
 
@@ -46,6 +55,22 @@ const BookList = (props) => {
     //     getListBook();
     // }
 
+    const sortBooks = (e) => {
+        setSortBy(e.target.value);
+        const bookList = [...bookResponse.items];
+
+        bookList.sort((a, b) => {
+            if (a.name < b.name) {
+                return e.target.value === "a-z" ? -1 : 1;
+            }
+            if (a.name > b.name) {
+                return e.target.value === "a-z" ? 1 : -1;
+            }
+            return 0;
+        });
+        setBookResponse({ ...bookResponse, items: bookList });
+    };
+
     return (
         <>
             {loading && <Spinner />}
@@ -69,8 +94,18 @@ const BookList = (props) => {
                     }}></div>
                 </div>
 
-                <div>
+                <div className='d-flex justify-content-center align-items-center'>
                     <h1>Total - {totalResults.totalItems} items</h1>
+                    <FormControl variant="outlined" fullWidth>
+                        <InputLabel htmlFor="select">Sort By</InputLabel>
+                        <Select
+                            onChange={sortBooks}
+                            value={sortBy}
+                        >
+                            <MenuItem value="a-z">a - z</MenuItem>
+                            <MenuItem value="z-a">z - a</MenuItem>
+                        </Select>
+                    </FormControl>
                 </div>
                 <div className='container-main-1'>
                     <div className='row main'>

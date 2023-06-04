@@ -42,7 +42,7 @@ const Navbar = () => {
           <li><Link className='line mt-1 text-secondary'>|</Link></li>
 
           <li className='linkTag color-red' onClick={valueChange}>
-            <Link to="/update" className='linkTag color-red' style={{
+            <Link to="/login" className='linkTag color-red' style={{
               fontWeight: "600",
               margin: 4,
             }}

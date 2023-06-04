@@ -88,7 +88,7 @@ const AddBook = () => {
 
     const getCategory = async () => {
         try {
-            const url = await axios.get('https://book-e-sell-node-api.vercel.app/api/category/all');
+            const url = 'https://book-e-sell-node-api.vercel.app/api/category/all';
             let res = await fetch(url);
             let parsedData = await res.json();
             setCategories(parsedData.result)

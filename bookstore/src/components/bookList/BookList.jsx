@@ -11,13 +11,6 @@ const BookList = (props) => {
     const [page, setPage] = useState(1)
     const [totalResults, setTotalResults] = useState('')
     const [sortBy, setSortBy] = useState();
-    const [bookResponse, setBookResponse] = useState({
-        pageIndex: 0,
-        pageSize: 10,
-        totalPages: 1,
-        items: [],
-        totalItems: 0,
-    });
 
     const getListBook = async () => {
 
@@ -55,20 +48,14 @@ const BookList = (props) => {
     //     getListBook();
     // }
 
-    const sortBooks = (e) => {
-        setSortBy(e.target.value);
-        const bookList = [...bookResponse.items];
-
-        bookList.sort((a, b) => {
-            if (a.name < b.name) {
-                return e.target.value === "a-z" ? -1 : 1;
-            }
-            if (a.name > b.name) {
-                return e.target.value === "a-z" ? 1 : -1;
-            }
-            return 0;
-        });
-        setBookResponse({ ...bookResponse, items: bookList });
+    const FilterAtoZ = (e) => {
+        var item = e.target.value;
+        console.log(item);
+        if (item === '1') {
+            setBook([...book].sort((a, b) => a.name.localeCompare(b.name)));
+        } else if (item === '2') {
+            setBook([...book].sort((a, b) => b.name.localeCompare(a.name)));
+        }
     };
 
     return (
@@ -99,11 +86,12 @@ const BookList = (props) => {
                     <FormControl variant="outlined" fullWidth>
                         <InputLabel htmlFor="select">Sort By</InputLabel>
                         <Select
-                            onChange={sortBooks}
-                            value={sortBy}
+                            defaultValue=""
+                            onChange={FilterAtoZ}
+                            name="sortby"
                         >
-                            <MenuItem value="a-z">a - z</MenuItem>
-                            <MenuItem value="z-a">z - a</MenuItem>
+                            <MenuItem value="1">a - z</MenuItem>
+                            <MenuItem value="2">z - a</MenuItem>
                         </Select>
                     </FormControl>
                 </div>
@@ -127,11 +115,11 @@ const BookList = (props) => {
                                     <div className='desc'>
                                         {element.description}
                                     </div>
-                                    <p className="price-p">
+                                    <span className="price-p">
                                         <h5 className="price-h5">
                                             MRP &#8377; {element.price}
                                         </h5>
-                                    </p>
+                                    </span>
                                     <button className="btn btn-danger col-12">
                                         <span
                                             className=""

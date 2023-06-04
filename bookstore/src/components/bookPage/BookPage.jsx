@@ -5,12 +5,13 @@ import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom'
 import "./bookPage.css"
 import { DeleteOutlineOutlined } from '@mui/icons-material';
-import { Button, Stack } from '@mui/material';
+import { Button, FormControl, OutlinedInput, Stack } from '@mui/material';
 
 const BookPage = () => {
 
     const navigate = useNavigate();
     const [book, setBook] = useState([])
+    const [search, setSearch] = useState({});
 
     const getListBook = async () => {
         const url = "https://book-e-sell-node-api.vercel.app/api/book/all/"
@@ -112,7 +113,18 @@ const BookPage = () => {
                         ADD
                     </Button>
                 </Stack>
-                <h4 className='m-auto mx-0'>ADD BOOK</h4>
+                <div className='content-search'>
+                    <FormControl sx={{ width: '35ch' }} >
+
+                        <OutlinedInput placeholder="Search..." onChange={(e) => setSearch(e.target.value)}
+                            style={{
+                                height: '40px',
+                                padding: 3,
+                                fontWeight: 'bolder'
+                            }}
+                        />
+                    </FormControl>
+                </div>
             </div>
 
             <div className='userList'>

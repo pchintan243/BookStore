@@ -19,7 +19,6 @@ const BookList = (props) => {
     const getListBook = async () => {
 
         try {
-
             // props.setProgress(10);
             // const url = `https://book-e-sell-node-api.vercel.app/api/book?pageSize=8&pageIndex=${page}&keyword=${search}`
             const url = `https://book-e-sell-node-api.vercel.app/api/book/all`
@@ -30,12 +29,11 @@ const BookList = (props) => {
             setLoading(false)
             let parsedData = await data.json();
 
-            console.log("bl", book.length);
+            console.log("bdl", book);
 
             setBook(parsedData.result)
             setTotalResults(parsedData)
             console.log("t1", totalResults);
-            console.log("t2", totalResults.totalItems);
             // props.setProgress(100);
         }
 
@@ -93,31 +91,38 @@ const BookList = (props) => {
                     }}></div>
                 </div>
 
-                <div className='d-flex justify-content-center align-items-center'>
-                    <h1>Total - {book.length} items</h1>
+                <div className='content'>
+                    <div className='content-header'>
+                        <h3>Total - {book.length} items</h3>
+                    </div>
+                    <div className='content-search'>
+                        <FormControl sx={{ width: '35ch' }} >
 
-                    <FormControl sx={{ width: '55ch' }} >
-
-                        <OutlinedInput placeholder="What are you looking for..." onChange={(e) => setSearch(e.target.value)}
-                            style={{
-                                height: '40px',
-                                padding: 3,
-                                fontWeight: 'bolder'
-                            }}
-                        />
-                    </FormControl>
-
-                    <FormControl variant="outlined" fullWidth>
-                        <InputLabel htmlFor="select">Sort By</InputLabel>
-                        <Select
-                            defaultValue=""
-                            onChange={(e) => FilterAtoZ(e)}
-                            name="sortby"
-                        >
-                            <MenuItem value="1">a - z</MenuItem>
-                            <MenuItem value="2">z - a</MenuItem>
-                        </Select>
-                    </FormControl>
+                            <OutlinedInput placeholder="Search..." onChange={(e) => setSearch(e.target.value)}
+                                style={{
+                                    height: '40px',
+                                    padding: 3,
+                                    fontWeight: 'bolder'
+                                }}
+                            />
+                        </FormControl>
+                    </div>
+                    <div className='content-sort'>
+                        <InputLabel className='me-2'>Sort By</InputLabel>
+                        <FormControl variant="outlined" className='form-control'>
+                            <Select
+                                labelId="demo-simple-select-label"
+                                id="demo-simple-select"
+                                defaultValue=""
+                                onChange={(e) => FilterAtoZ(e)}
+                                name="sortby"
+                                className='content-select-tag'
+                            >
+                                <MenuItem value="1">a - z</MenuItem>
+                                <MenuItem value="2">z - a</MenuItem>
+                            </Select>
+                        </FormControl>
+                    </div>
                 </div>
                 <div className='container-main-1'>
                     <div className='row main'>

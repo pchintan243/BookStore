@@ -1,7 +1,41 @@
+.content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 20px 54px;
+}
+
+.content-header h3 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: auto;
+}
+
+.content-sort {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
 .container-main-1 {
     padding: 0 37px;
     display: flex;
     justify-content: center;
+}
+
+.form-control {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 20px;
+    width: 200px;
+}
+
+.content-select-tag {
+    height: 40px;
+    width: 200px;
 }
 
 .main {

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import "./bookList.css"
 import Spinner from '../Spinner'
 import InfiniteScroll from "react-infinite-scroll-component";
-import { FormControl, InputLabel, MenuItem, Select } from '@mui/material';
+import { FormControl, InputLabel, MenuItem, OutlinedInput, Pagination, Select, Stack } from '@mui/material';
 
 const BookList = (props) => {
 
@@ -10,31 +10,44 @@ const BookList = (props) => {
     const [loading, setLoading] = useState(true)
     const [page, setPage] = useState(1)
     const [totalResults, setTotalResults] = useState('')
-    const [sortBy, setSortBy] = useState();
+    const [search, setSearch] = useState({});
+
+    const handleChange = (event, value) => {
+        setPage(value);
+    };
 
     const getListBook = async () => {
 
-        // props.setProgress(10);
-        const url = "https://book-e-sell-node-api.vercel.app/api/book/all/"
-        setPage(page + 2)
-        let data = await fetch(url);
-        setLoading(true);
+        try {
 
-        // props.setProgress(40);
-        setLoading(false)
-        let parsedData = await data.json();
+            // props.setProgress(10);
+            // const url = `https://book-e-sell-node-api.vercel.app/api/book?pageSize=8&pageIndex=${page}&keyword=${search}`
+            const url = `https://book-e-sell-node-api.vercel.app/api/book/all`
+            let data = await fetch(url);
+            setLoading(true);
 
-        // props.setProgress(70);
-        setBook(parsedData.result)
-        setTotalResults(parsedData)
-        console.log("t1", totalResults);
-        console.log("t2", totalResults.totalItems);
-        // props.setProgress(100);
+            // props.setProgress(40);
+            setLoading(false)
+            let parsedData = await data.json();
+
+            console.log("bl", book.length);
+
+            setBook(parsedData.result)
+            setTotalResults(parsedData)
+            console.log("t1", totalResults);
+            console.log("t2", totalResults.totalItems);
+            // props.setProgress(100);
+        }
+
+        catch (e) {
+            console.log("err", e);
+        }
+
     }
 
     useEffect(() => {
         getListBook();
-    }, [])
+    }, [page, search])
 
     // const handlePrevClick = async () => {
     //     // Page will be decrement by 1 if you click on previous button
@@ -65,7 +78,6 @@ const BookList = (props) => {
                 dataLength={book.length}
                 next={getListBook}
                 hasMore={book.length !== totalResults}
-                loader={<Spinner />}
             >
 
                 <div className="container">
@@ -82,12 +94,24 @@ const BookList = (props) => {
                 </div>
 
                 <div className='d-flex justify-content-center align-items-center'>
-                    <h1>Total - {totalResults.totalItems} items</h1>
+                    <h1>Total - {book.length} items</h1>
+
+                    <FormControl sx={{ width: '55ch' }} >
+
+                        <OutlinedInput placeholder="What are you looking for..." onChange={(e) => setSearch(e.target.value)}
+                            style={{
+                                height: '40px',
+                                padding: 3,
+                                fontWeight: 'bolder'
+                            }}
+                        />
+                    </FormControl>
+
                     <FormControl variant="outlined" fullWidth>
                         <InputLabel htmlFor="select">Sort By</InputLabel>
                         <Select
                             defaultValue=""
-                            onChange={FilterAtoZ}
+                            onChange={(e) => FilterAtoZ(e)}
                             name="sortby"
                         >
                             <MenuItem value="1">a - z</MenuItem>
@@ -134,10 +158,11 @@ const BookList = (props) => {
                         })}
                     </div>
                 </div>
-                {/* <div className="container d-flex justify-content-between">
-                    <button disabled={page <= 1} type="button" className="btn btn-sm btn-danger" onClick={handlePrevClick}> &larr; Previous</button>
-                    <button disabled={page + 1 > Math.ceil(totalResults / props.pageSize)} type="button" className="btn btn-sm btn-danger" onClick={handleNextClick}>Next &rarr;</button>
-                </div> */}
+                <div className='d-flex justify-content-center mt-5'>
+                    <Stack spacing={2}>
+                        <Pagination count={totalResults.totalPages} color="error" page={page} onChange={handleChange} />
+                    </Stack>
+                </div>
             </InfiniteScroll>
         </>
     )

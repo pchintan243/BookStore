@@ -4,6 +4,7 @@ import axios from 'axios';
 import { Formik } from 'formik';
 import { Button, FormControl, InputLabel, MenuItem, Select, TextField } from '@mui/material';
 import * as Yup from "yup";
+import "./addBook.css"
 
 const AddBook = () => {
 
@@ -34,11 +35,19 @@ const AddBook = () => {
         var filePath = fileInput.value;
 
         // Allowing file type
-        var allowedExtensions =
-            /(\.jpg|\.jpeg|\.png)$/i;
+        var allowedExtensions = /(\.jpg|\.jpeg|\.png)$/i;
 
         if (!allowedExtensions.exec(filePath)) {
-            alert('Invalid file type');
+            toast.error('Invalid File Type..!!', {
+                position: "top-right",
+                autoClose: 3000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "dark",
+            });
             fileInput.value = '';
             return false;
         }
@@ -204,7 +213,7 @@ const AddBook = () => {
                                         value={values.categoryId}
                                     >
                                         {categories.map((elem) => {
-                                            return <MenuItem value={elem.id}>
+                                            return <MenuItem key={elem.id} value={elem.id}>
                                                 {elem.name}
                                             </MenuItem>
                                         })}
@@ -223,7 +232,7 @@ const AddBook = () => {
                                 )}
                             </div>
 
-                            <div div className='d-flex flex-column m-4 col-md-5 position-relative' >
+                            <div div className='d-flex m-4 col-md-5 position-relative' >
                                 <Button>
                                     <input type="file" id="file" onChange={fileValidation} />
                                 </Button>
@@ -239,8 +248,7 @@ const AddBook = () => {
                                     >
                                         {errors.base64image}
                                     </span>
-                                )
-                                }
+                                )}
                             </div>
 
                             {/* Description field */}

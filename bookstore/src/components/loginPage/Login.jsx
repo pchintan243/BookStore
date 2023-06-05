@@ -1,13 +1,13 @@
 import React, { useState, useContext } from 'react'
 import axios from 'axios';
 import { toast } from 'react-toastify';
-import Main from '../components/main/Main'
+import Main from '../main/Main'
 import * as Yup from "yup";
 import { Formik } from 'formik';
 import { Button, IconButton, InputAdornment, TextField } from '@mui/material';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 import { useNavigate } from 'react-router-dom';
-import loginContext from '../context/loginContext';
+import loginContext from '../../context/loginContext';
 
 const Login = () => {
 

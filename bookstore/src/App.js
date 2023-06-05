@@ -9,7 +9,7 @@ import { ThemeProvider } from '@emotion/react';
 import { theme } from "./styles"
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import Login from './loginPage/Login';
+import Login from './components/loginPage/Login';
 import Footer from './components/Footer';
 import Signup from './components/signup/Signup';
 import LoginState from './context/LoginState';

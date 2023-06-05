@@ -3,38 +3,15 @@ import axios from 'axios';
 import { toast } from 'react-toastify';
 import { Formik } from 'formik';
 import { Button, IconButton, InputAdornment, TextField } from '@mui/material';
-import { Visibility, VisibilityOff } from '@mui/icons-material';
-import * as Yup from "yup";
-import YupPassword from 'yup-password';
-import Main from '../main/Main';
 import { useNavigate } from 'react-router-dom';
-YupPassword(Yup);
+import * as Yup from "yup";
 
-const Signup = () => {
+const EditUser = () => {
+
     const navigate = useNavigate();
-
-    const [showPassword, setShowPassword] = useState(false);
-
-    const handleClickShowPassword = () => setShowPassword(!showPassword);
-
-    const handleMouseDownPassword = () => setShowPassword(!showPassword);
-    useEffect(() => {
-
-    }, [])
+    const [storeData, setStoreData] = useState([])
 
     const validationSchema = Yup.object().shape({
-        password: Yup.string()
-            .required('Please Enter the Password')
-            .min(8, 'password must contain 8 or more characters with at least one of each: uppercase, lowercase, number and special')
-            .minLowercase(1, 'password must contain at least 1 lower case letter')
-            .minUppercase(1, 'password must contain at least 1 upper case letter')
-            .minNumbers(1, 'password must contain at least 1 number')
-            .minSymbols(1, 'password must contain at least 1 special character'),
-
-        ConfirmPassword: Yup.string()
-            .required('Please Enter the Password Again')
-            .oneOf([Yup.ref('password'), null], 'Passwords are not matching..!!'),
-
         firstName: Yup.string().min(5, "firstName must be more than 4 Character")
             .max(8, "Limit exist")
             .required("Please Enter Your firstName")
@@ -47,7 +24,8 @@ const Signup = () => {
 
         roleId: Yup.string().required('Please Enter Role Id')
     });
-    const onFormSubmit = async (values) => {
+
+    const onFormSubmit = async (values, id) => {
         const getData = {
             "firstName": values.firstName,
             "lastName": values.lastName,
@@ -56,10 +34,15 @@ const Signup = () => {
             "roleId": values.roleId
         }
         try {
-            const res = await axios.post("https://book-e-sell-node-api.vercel.app/api/user", getData);            
-            localStorage.setItem("data",JSON.stringify(res.data.result))
+            const url = await axios.get(`https://book-e-sell-node-api.vercel.app/api/user/byId?id=${id}`, getData);
+            let res = await fetch(url);
+            let parsedData = await res.json();
+            setStoreData(parsedData.result)
+            console.log(storeData);
             if (res.status === 200) {
-                toast.success('Data Created Succesfully..!!', {
+                console.log(res.data.id);
+                console.log(getData);
+                toast.success('User updated Succesfully..!!', {
                     position: "top-right",
                     autoClose: 3000,
                     hideProgressBar: false,
@@ -85,11 +68,12 @@ const Signup = () => {
             });
         }
     }
+
+
     return (
         <>
-            <Main />
             <Formik
-                initialValues={{ firstName: '', lastName: '', email: '', password: '', roleId: 0 }}
+                initialValues={{ firstName: '', lastName: '', email: '', roleId: 0 }}
                 validate={values => {
                     const errors = {};
                     if (!values.email) {
@@ -106,28 +90,25 @@ const Signup = () => {
             >
                 {({ errors, touched, handleChange, handleBlur, handleSubmit }) => (
                     <div className="container">
-                        <h2 style={{
-                            marginLeft: "69px",
-                            fontSize: '20px',
-                            fontWeight: 600
-                        }}>
-                            Personal Information
-                        </h2>
+                        <h1
+                            style={{
+                                margin: '35px 0px 17px',
+                                textAlign: 'center',
+                                fontWeight: 700
+                            }}
+                        >
+                            Edit User
+                        </h1>
+                        <div
+                            style={{
+                                height: '2px',
+                                width: '17%',
+                                margin: "10px auto 50px",
+                                backgroundColor: 'red',
+                            }}
+                        >
+                        </div>
 
-                        <hr style={{
-                            margin: "20px 70px",
-                            width: "87.3%",
-                            borderWidth: 2,
-                            color: '#808080b0'
-                        }} />
-
-                        <h6 style={{
-                            marginLeft: "69px",
-                            color: 'grey',
-                            fontWeight: 300
-                        }}>
-                            Please enter the following information to create your account.
-                        </h6>
                         <form onSubmit={handleSubmit} className='row d-flex align-items-center justify-content-center'>
 
                             {/* firstName Field */}
@@ -226,88 +207,17 @@ const Signup = () => {
                                 )}
                             </div>
 
-                            <h2 style={{
-                                width: '90%',
-                                marginLeft: "30px",
-                                marginTop: "30px",
-                                fontSize: '20px',
-                                fontWeight: 600
-                            }}>
-                                Login Information
-                            </h2>
-
-                            <hr style={{
-                                margin: "5px 35px",
-                                width: "85.3%",
-                                borderWidth: 2,
-                                color: '#808080b0'
-                            }} />
-
-                            {/* Password field */}
-                            <div className='d-flex flex-column m-4 col-md-5 position-relative'>
-                                <TextField
-                                    variant="outlined"
-                                    type={showPassword ? "text" : "password"}
-                                    label='Password'
-                                    name='password'
-                                    onChange={handleChange}
-                                    onBlur={handleBlur}
-                                    InputProps={{
-                                        endAdornment: (
-                                            <InputAdornment position="end">
-                                                <IconButton
-                                                    aria-label="toggle password visibility"
-                                                    onClick={handleClickShowPassword}
-                                                    onMouseDown={handleMouseDownPassword}
-                                                >
-                                                    {showPassword ? <VisibilityOff /> : <Visibility />}
-                                                </IconButton>
-                                            </InputAdornment>
-                                        )
-                                    }}
-                                />
-                                {errors.password && touched.password && (
-                                    <span className='p-1 fw-bold text-danger'
-                                        style={{
-                                            position: 'absolute',
-                                            top: '100%',
-                                            fontSize: '15px'
-                                        }}
-                                    >
-                                        {errors.password}
-                                    </span>
-                                )}
-                            </div>
-
-                            {/* ConfirmPassword field */}
-                            <div className='d-flex flex-column m-4 col-md-5 position-relative'>
-                                <TextField
-                                    variant="outlined"
-                                    type={"password"}
-                                    label='ConfirmPassword'
-                                    name='ConfirmPassword'
-                                    onChange={handleChange}
-                                    onBlur={handleBlur}
-                                />
-                                {errors.ConfirmPassword && touched.ConfirmPassword && (
-                                    <span className='p-1 fw-bold text-danger'
-                                        style={{
-                                            position: 'absolute',
-                                            top: '100%',
-                                            fontSize: '15px'
-                                        }}
-                                    >
-                                        {errors.ConfirmPassword}
-                                    </span>
-                                )}
-                            </div>
-
                             {/* Submit Button */}
                             <div>
-                                <Button variant="contained" type="submit" color='error' className='' style={{
-                                    margin: '28px 90px'
+                                <Button variant="contained" type="submit" color='success' style={{
+                                    margin: '28px 30px'
                                 }}>
-                                    Register
+                                    Save
+                                </Button>
+                                <Button variant="contained" type="submit" color='error' onClick={() => navigate("/category")} style={{
+                                    margin: '28px 0px'
+                                }}>
+                                    Cancel
                                 </Button>
                             </div>
                         </form>
@@ -318,4 +228,4 @@ const Signup = () => {
     )
 }
 
-export default Signup
+export default EditUser

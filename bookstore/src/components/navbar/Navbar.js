@@ -79,6 +79,7 @@ const Navbar = () => {
               Book
             </Link>
           </li>
+
           <li>
             <Link to="/category" className='linkTag color-red' style={{
               margin: 4,
@@ -86,6 +87,16 @@ const Navbar = () => {
             }}
             >
               Category
+            </Link>
+          </li>
+
+          <li>
+            <Link to="/user" className='linkTag color-red' style={{
+              margin: 4,
+              fontWeight: "600",
+            }}
+            >
+              User
             </Link>
           </li>
           <NavChange />

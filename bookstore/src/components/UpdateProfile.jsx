@@ -11,8 +11,16 @@ YupPassword(Yup);
 const UpdateProfile = () => {
     const navigate = useNavigate();
 
+    const initialValueState = {
+        email: "",
+        firstName: "",
+        lastName: "",
+        newPassword: "",
+        confirmPassword: ""
+    }
+
     const validationSchema = Yup.object().shape({
-        password: Yup.string()
+        newPassword: Yup.string()
             .required('Please Enter the Password')
             .min(8, 'password must contain 8 or more characters with at least one of each: uppercase, lowercase, number and special')
             .minLowercase(1, 'password must contain at least 1 lower case letter')
@@ -34,18 +42,27 @@ const UpdateProfile = () => {
             .required("Please Enter Your lastName")
             .matches(/^[aA-zZ\s]+$/, "Only alphabets are allowed for this field"),
     });
+
+
+    const check = async () => {
+        const res = await axios.get('https://book-e-sell-node-api.vercel.app/api/user')
+    }
+
+
     const onFormSubmit = async (values) => {
         const getData = {
             "firstName": values.firstName,
             "lastName": values.lastName,
             "email": values.email,
-            "password": values.password,
+            "password": values.newPassword,
             "roleId": values.roleId
         }
         try {
-            const res = await axios.post("https://book-e-sell-node-api.vercel.app/api/user", getData);
+            const url = 'https://book-e-sell-node-api.vercel.app/api/user'
+
+            const res = await axios.put("https://book-e-sell-node-api.vercel.app/api/user", getData);
+            console.log("res", res);
             if (res.status === 200) {
-                console.log(res.data.id);
                 toast.success('Data created Succesfully..!!', {
                     position: "top-right",
                     autoClose: 3000,
@@ -75,7 +92,7 @@ const UpdateProfile = () => {
     return (
         <>
             <Formik
-                initialValues={{ firstName: '', lastName: '', email: '', newPassword: '', confirmPassword: '' }}
+                initialValues={initialValueState}
                 validate={values => {
                     const errors = {};
                     if (!values.email) {
@@ -182,12 +199,12 @@ const UpdateProfile = () => {
                                 <TextField
                                     variant="outlined"
                                     type={"password"}
-                                    label='Password'
-                                    name='password'
+                                    label='NewPassword'
+                                    name='newPassword'
                                     onChange={handleChange}
                                     onBlur={handleBlur}
                                 />
-                                {errors.password && touched.password && (
+                                {errors.newPassword && touched.newPassword && (
                                     <span className='p-1 fw-bold text-danger'
                                         style={{
                                             position: 'absolute',
@@ -195,7 +212,7 @@ const UpdateProfile = () => {
                                             fontSize: '15px'
                                         }}
                                     >
-                                        {errors.password}
+                                        {errors.newPassword}
                                     </span>
                                 )}
                             </div>

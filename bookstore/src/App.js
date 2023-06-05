@@ -20,6 +20,9 @@ import UpdateBook from './components/updateBook/UpdateBook';
 import AddBook from './components/addBook/AddBook';
 import Category from './components/category/Category';
 import AddCategory from './components/category/AddCategory';
+import Cart from './components/cart/Cart';
+import User from './components/user/User';
+import EditUser from './components/user/EditUser';
 
 function App() {
   const pageSize = 8;
@@ -43,7 +46,10 @@ function App() {
               <Route exact path="/add-book" element={<AddBook />} />
               <Route exact path="/booklist" element={<BookList />} />
               <Route exact path="/category" element={<Category />} />
-              <Route exact path="/addcategory" element={<AddCategory />} />
+              <Route exact path="/add-category" element={<AddCategory />} />
+              <Route exact path="/cart" element={<Cart />} />
+              <Route exact path="/user" element={<User />} />
+              <Route exact path="/edit-user/:id/" element={<EditUser />} />
               <Route exact path="/*" element={<h1>Page Not Found</h1>} />
             </Routes>
           </Router>

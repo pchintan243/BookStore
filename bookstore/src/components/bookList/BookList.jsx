@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react'
-import axios from "axios"
 import "./bookList.css"
 import Spinner from '../Spinner'
 import InfiniteScroll from "react-infinite-scroll-component";
@@ -7,11 +6,14 @@ import { FormControl, InputLabel, MenuItem, OutlinedInput, Pagination, Select, S
 
 const BookList = () => {
 
+    // for search and sorting
     const [book, setBook] = useState([])
+
     const [loading, setLoading] = useState(true)
     const [page, setPage] = useState(1)
     const [totalResults, setTotalResults] = useState('')
     const [search, setSearch] = useState({});
+    const [pageCount, setPageCount] = useState('')
 
     const handleChange = (event, value) => {
         setPage(value);
@@ -20,22 +22,21 @@ const BookList = () => {
     const getListBook = async () => {
 
         try {
-            // props.setProgress(10);
-            // const url = `https://book-e-sell-node-api.vercel.app/api/book?pageSize=8&pageIndex=${page}&keyword=${search}`
-            const url = `https://book-e-sell-node-api.vercel.app/api/book/all`
+            const url = `https://book-e-sell-node-api.vercel.app/api/book?pageSize=8&pageIndex=${page}&keyword=${search}`
             let data = await fetch(url);
             setLoading(true);
-
-            // props.setProgress(40);
             setLoading(false)
+            // Store the data in parsedData
             let parsedData = await data.json();
 
-            console.log("bdl", book);
-
-            setBook(parsedData.result)
-            setTotalResults(parsedData)
-            console.log("t1", totalResults);
-            // props.setProgress(100);
+            // Store the item data
+            setBook(parsedData.result.items)
+            // Store total number of items
+            setTotalResults(parsedData.result.totalItems)
+            // Store pages
+            setPageCount(parsedData.result.totalPages)
+            // console.log("t1", parsedData);
+            // console.log("t1d", book);
         }
 
         catch (e) {
@@ -93,7 +94,7 @@ const BookList = () => {
 
                 <div className='content'>
                     <div className='content-header'>
-                        <h3>Total - {book.length} items</h3>
+                        <h3>Total - {totalResults} items</h3>
                     </div>
                     <div className='content-search'>
                         <FormControl sx={{ width: '35ch' }} >
@@ -163,7 +164,7 @@ const BookList = () => {
                 </div>
                 <div className='d-flex justify-content-center mt-5'>
                     <Stack spacing={2}>
-                        <Pagination count={totalResults.totalPages} color="error" page={page} onChange={handleChange} />
+                        <Pagination count={pageCount} color="error" page={page} onChange={handleChange} />
                     </Stack>
                 </div>
             </InfiniteScroll>

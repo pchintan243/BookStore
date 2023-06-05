@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react'
+import axios from "axios"
 import "./bookList.css"
 import Spinner from '../Spinner'
 import InfiniteScroll from "react-infinite-scroll-component";
 import { FormControl, InputLabel, MenuItem, OutlinedInput, Pagination, Select, Stack } from '@mui/material';
 
-const BookList = (props) => {
+const BookList = () => {
 
     const [book, setBook] = useState([])
     const [loading, setLoading] = useState(true)
@@ -61,7 +62,6 @@ const BookList = (props) => {
 
     const FilterAtoZ = (e) => {
         var item = e.target.value;
-        console.log(item);
         if (item === '1') {
             setBook([...book].sort((a, b) => a.name.localeCompare(b.name)));
         } else if (item === '2') {
@@ -127,8 +127,6 @@ const BookList = (props) => {
                 <div className='container-main-1'>
                     <div className='row main'>
                         {book.map((element) => {
-                            {/* var count = 0; */ }
-                            {/* console.log(count) */ }
                             return <div className="main-card" key={element.id}>
 
                                 <div className='img-div'>

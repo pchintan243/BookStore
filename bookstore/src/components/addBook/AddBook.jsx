@@ -93,7 +93,6 @@ const AddBook = () => {
             });
         }
     }
-    console.log("l", categories)
 
     const getCategory = async () => {
         try {
@@ -101,7 +100,6 @@ const AddBook = () => {
             let res = await fetch(url);
             let parsedData = await res.json();
             setCategories(parsedData.result)
-            // console.log(categories);
         }
         catch (err) {
             toast.error('category', {

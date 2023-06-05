@@ -30,7 +30,7 @@ const AddBook = () => {
         base64image: Yup.string().required("Image is required"),
     });
 
-    function fileValidation() {
+    function fileValidation(setFieldValue) {
         var fileInput = document.getElementById('file');
 
         var filePath = fileInput.value;
@@ -61,15 +61,24 @@ const AddBook = () => {
                         'imagePreview').innerHTML =
                         '<img src="' + e.target.result
                         + '"/>';
+                    setFieldValue("base64image", e.target.result)
                 };
                 reader.readAsDataURL(fileInput.files[0]);
             }
         }
     }
 
-    const onSubmit = async () => {
+    const onSubmit = async (values) => {
+        const getDetails = {
+            name: values.name,
+            description: values.description,
+            categoryId: values.categoryId,
+            price: values.price,
+            base64image: values.base64image
+        }
         try {
-            await axios.post('https://book-e-sell-node-api.vercel.app/api/book');
+            await axios.post('https://book-e-sell-node-api.vercel.app/api/book', getDetails);
+            navigate("/bookpage")
             toast.success('Book Added Succesfully..!!', {
                 position: "top-right",
                 autoClose: 3000,
@@ -82,7 +91,7 @@ const AddBook = () => {
             });
         }
         catch (err) {
-            toast.error('error', {
+            toast.error('Error while book adding..!!', {
                 position: "top-right",
                 autoClose: 3000,
                 hideProgressBar: false,
@@ -126,7 +135,7 @@ const AddBook = () => {
                 validationSchema={validationSchema}
                 onSubmit={onSubmit}
             >
-                {({ values, errors, touched, handleChange, handleBlur, handleSubmit }) => (
+                {({ values, errors, touched, handleChange, handleBlur, handleSubmit, setFieldValue }) => (
                     <div className="container">
                         <h1
                             style={{
@@ -233,7 +242,7 @@ const AddBook = () => {
 
                             <div div className='d-flex m-4 col-md-5 position-relative' >
                                 <Button>
-                                    <input type="file" id="file" onChange={fileValidation} />
+                                    <input type="file" id="file" onChange={() => fileValidation(setFieldValue)} />
                                 </Button>
                                 {/* Image preview */}
                                 <div id="imagePreview"></div>

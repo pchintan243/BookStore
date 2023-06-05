@@ -79,6 +79,15 @@ const Navbar = () => {
               Book
             </Link>
           </li>
+          <li>
+            <Link to="/category" className='linkTag color-red' style={{
+              margin: 4,
+              fontWeight: "600",
+            }}
+            >
+              Category
+            </Link>
+          </li>
           <NavChange />
 
           <li className='cart-li'>

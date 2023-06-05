@@ -5,11 +5,12 @@ import { Formik } from 'formik';
 import { Button, FormControl, InputLabel, MenuItem, Select, TextField } from '@mui/material';
 import * as Yup from "yup";
 import "./addBook.css"
+import { useNavigate } from 'react-router-dom';
 
 const AddBook = () => {
+    const navigate = useNavigate();
 
     const [categories, setCategories] = useState([]);
-
 
     const initialValues = {
         name: "",
@@ -278,11 +279,16 @@ const AddBook = () => {
                             </div>
 
                             {/* Submit Button */}
-                            <div>
-                                <Button variant="contained" type="submit" color='error' className='' style={{
-                                    margin: '28px 90px'
+                            <div className='m-0'>
+                                <Button variant="contained" type="submit" color='success' style={{
+                                    margin: '0px 30px 45px 72px'
                                 }}>
-                                    Register
+                                    Save
+                                </Button>
+                                <Button variant="contained" type="submit" color='error' onClick={() => navigate("/bookpage")} style={{
+                                    margin: '0px 0px 45px'
+                                }}>
+                                    Cancel
                                 </Button>
                             </div>
                         </form>

@@ -35,7 +35,7 @@ const Category = () => {
             });
         }
         catch (err) {
-            toast.error('error-in getting category..!!', {
+            toast.error('Error getting while category delete..!!', {
                 position: "top-right",
                 autoClose: 3000,
                 hideProgressBar: false,
@@ -91,7 +91,7 @@ const Category = () => {
                     margin: '3px 10px',
                     height: 40
                 }}>
-                    <Button variant="outlined" onClick={() => navigate("/addcategory")} style={{ color: 'white', backgroundColor: 'rgb(255 0 11)', margin: '0px 82px 0 0' }}>
+                    <Button variant="outlined" onClick={() => navigate("/add-category")} style={{ color: 'white', backgroundColor: 'rgb(255 0 11)', margin: '0px 82px 0 0' }}>
                         ADD
                     </Button>
                 </Stack>

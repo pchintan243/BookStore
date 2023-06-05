@@ -19,11 +19,13 @@ const AddCategory = () => {
     });
 
 
-    const onSubmit = async () => {
+    const onSubmit = async (values) => {
 
+        const getData = {
+            "name": values.name
+        }
         try {
-            await axios.post('https://book-e-sell-node-api.vercel.app/api/category');
-            console.log("category added");
+            await axios.post('https://book-e-sell-node-api.vercel.app/api/category', getData);
 
             navigate("/category")
             toast.success('Category Added Succesfully..!!', {
@@ -38,7 +40,7 @@ const AddCategory = () => {
             });
         }
         catch (err) {
-            toast.error('error-category', {
+            toast.error('Error getting while category add..!!', {
                 position: "top-right",
                 autoClose: 3000,
                 hideProgressBar: false,

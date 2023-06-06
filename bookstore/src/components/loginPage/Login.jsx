@@ -8,10 +8,12 @@ import { Button, IconButton, InputAdornment, TextField } from '@mui/material';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 import { useNavigate } from 'react-router-dom';
 import loginContext from '../../context/loginContext';
+import { useAuthContext } from "../../context/auth";
 
 const Login = () => {
 
     const loginCheck = useContext(loginContext)
+    const authContext = useAuthContext();
 
     const navigate = useNavigate();
 
@@ -36,6 +38,9 @@ const Login = () => {
         }
         try {
             const res = await axios.post("https://book-e-sell-node-api.vercel.app/api/user/login", getData)
+            delete res.data.result._id;
+            delete res.data.result.__v;
+            authContext.setUser(res.data.result);
             if (res.status === 200) {
                 console.log(res.data.id);
                 toast.success('Login Succesfully..!!', {

@@ -80,6 +80,7 @@ const Navbar = () => {
             </Link>
           </li>
 
+          <li><Link className='line mt-1 text-secondary'>|</Link></li>
           <li>
             <Link to="/category" className='linkTag color-red' style={{
               margin: 4,
@@ -90,6 +91,7 @@ const Navbar = () => {
             </Link>
           </li>
 
+          <li><Link className='line mt-1 text-secondary'>|</Link></li>
           <li>
             <Link to="/user" className='linkTag color-red' style={{
               margin: 4,

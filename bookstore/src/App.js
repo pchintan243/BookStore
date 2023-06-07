@@ -24,11 +24,9 @@ import Cart from './components/cart/Cart';
 import User from './components/user/User';
 import EditUser from './components/user/EditUser';
 import { AuthWrapper } from "./context/auth";
+import { CartWrapper } from "./context/cart";
 
 function App() {
-  const pageSize = 8;
-
-  // const [progress, setProgress] = useState(0)
   return (
     <>
       <LoginState>
@@ -36,24 +34,26 @@ function App() {
           <ToastContainer />
           <Router>
             <AuthWrapper>
-              <Navbar />
-              <Routes>
-                <Route exact path="/" element={<Home />} />
-                <Route exact path="/BookStore" element={<Navigate to="/" />}></Route>
-                <Route exact path="/signup" element={<Signup />} />
-                <Route exact path="/login" element={<Login />} />
-                <Route exact path="/update" element={<UpdateProfile />} />
-                <Route exact path="/bookpage" element={<BookPage />} />
-                <Route exact path="/edit-book/:id/" element={<UpdateBook />} />
-                <Route exact path="/add-book" element={<AddBook />} />
-                <Route exact path="/booklist" element={<BookList />} />
-                <Route exact path="/category" element={<Category />} />
-                <Route exact path="/add-category" element={<AddCategory />} />
-                <Route exact path="/cart" element={<Cart />} />
-                <Route exact path="/user" element={<User />} />
-                <Route exact path="/edit-user/:id/" element={<EditUser />} />
-                <Route exact path="/*" element={<h1>Page Not Found</h1>} />
-              </Routes>
+              <CartWrapper>
+                <Navbar />
+                <Routes>
+                  <Route exact path="/" element={<Home />} />
+                  <Route exact path="/BookStore" element={<Navigate to="/" />}></Route>
+                  <Route exact path="/signup" element={<Signup />} />
+                  <Route exact path="/login" element={<Login />} />
+                  <Route exact path="/update" element={<UpdateProfile />} />
+                  <Route exact path="/bookpage" element={<BookPage />} />
+                  <Route exact path="/edit-book/:id/" element={<UpdateBook />} />
+                  <Route exact path="/add-book" element={<AddBook />} />
+                  <Route exact path="/booklist" element={<BookList />} />
+                  <Route exact path="/category" element={<Category />} />
+                  <Route exact path="/add-category" element={<AddCategory />} />
+                  <Route exact path="/cart" element={<Cart />} />
+                  <Route exact path="/user" element={<User />} />
+                  <Route exact path="/edit-user/:id/" element={<EditUser />} />
+                  <Route exact path="/*" element={<h1>Page Not Found</h1>} />
+                </Routes>
+              </CartWrapper>
             </AuthWrapper>
           </Router>
         </ThemeProvider>

@@ -11,12 +11,22 @@ const Category = () => {
     const navigate = useNavigate();
     const [category, setCategory] = useState([])
     const [search, setSearch] = useState({});
+    const [pageSize, setPageSize] = useState(1)
 
-    const getCategory = async () => {
+    const getAllCategory = async () => {
         const url = "https://book-e-sell-node-api.vercel.app/api/category/all/"
         let res = await fetch(url);
         let parsedData = await res.json();
-        setCategory(parsedData.result)
+        setPageSize(parsedData.result.length)
+        console.log(pageSize);
+    }
+
+    const getCategory = async () => {
+        await getAllCategory();
+        const url = `https://book-e-sell-node-api.vercel.app/api/category?pageSize=${pageSize}&pageIndex=1&keyword=${search}`
+        let res = await fetch(url);
+        let parsedData = await res.json();
+        setCategory(parsedData.result.items)
     }
 
     const deleteCategory = async (categoryid) => {
@@ -49,8 +59,9 @@ const Category = () => {
     }
 
     useEffect(() => {
+        getAllCategory();
         getCategory();
-    }, []);
+    }, [search]);
 
 
     const columns = [
